@@ -1,4 +1,4 @@
-package com.example.verygoodcore.doc_prescriptions
+package com.doc_prescriptions
 
 import io.flutter.embedding.android.FlutterActivity
 
