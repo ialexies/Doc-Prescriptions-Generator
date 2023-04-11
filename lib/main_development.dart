@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:doc_prescriptions/app/app.dart';
 import 'package:doc_prescriptions/bootstrap.dart';
 import 'package:doc_prescriptions/firebase_options.dart';
@@ -8,10 +7,12 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     name: 'bmart',
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   // TODO(ialexies): initialize provider here later
   await initServices();
   await bootstrap(() => const App());
