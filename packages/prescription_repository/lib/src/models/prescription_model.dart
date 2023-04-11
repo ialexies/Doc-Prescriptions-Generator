@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+///
 class Prescription {
+  ///
   Prescription({
     required this.clientLastName,
     required this.clientFirstName,
@@ -8,9 +10,12 @@ class Prescription {
     required this.medicine,
     required this.description,
   });
+
+  ///
   factory Prescription.fromJson(String source) =>
       Prescription.fromMap(json.decode(source) as Map<String, dynamic>);
 
+  ///
   factory Prescription.fromMap(Map<String, dynamic> map) {
     return Prescription(
       clientLastName: map['clientLastName'] as String,
@@ -20,10 +25,20 @@ class Prescription {
       description: map['description'] as String,
     );
   }
+
+  ///
   String clientLastName;
+
+  ///
   String clientFirstName;
+
+  ///
   String contact;
+
+  ///
   String medicine;
+
+  ///
   String description;
 
   Map<String, dynamic> toMap() {
@@ -36,5 +51,6 @@ class Prescription {
     };
   }
 
+  ///
   String toJson() => json.encode(toMap());
 }

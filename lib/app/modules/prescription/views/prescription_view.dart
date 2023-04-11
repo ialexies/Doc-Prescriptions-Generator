@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_prescriptions/app/modules/prescription/controllers/prescription_controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:prescription_repository/prescription_repository.dart';
 
 class PrescriptionView extends GetView<PrescriptionController> {
   const PrescriptionView({super.key});
@@ -13,7 +15,9 @@ class PrescriptionView extends GetView<PrescriptionController> {
       mainAxisSize: MainAxisSize.min,
       children: [
         StreamBuilder<QuerySnapshot>(
-          stream: controller.prescriptions,
+          stream: FirebaseFirestore.instance
+              .collectionGroup('prescriptions')
+              .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
@@ -34,11 +38,12 @@ class PrescriptionView extends GetView<PrescriptionController> {
                   children:
                       snapshot.data!.docs.map((DocumentSnapshot document) {
                     final data = document.data()! as Map<String, dynamic>;
+                    final dataSerialized = Prescription.fromMap(data);
                     return Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: ListTile(
-                        title: Text(data['clientFirstName'].toString()),
-                        subtitle: Text(data['contact'].toString()),
+                        title: Text(dataSerialized.clientFirstName),
+                        subtitle: Text(dataSerialized.contact),
                         trailing: IconButton(
                           onPressed: () {},
                           icon: Icon(

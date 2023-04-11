@@ -81,7 +81,7 @@ class DPDrawer extends GetView<HomeController> {
                         '',
                         snackPosition: SnackPosition.BOTTOM,
                       );
-                      await Get.toNamed(Routes.signin);
+                      await Get.offAndToNamed(Routes.signin);
                     } catch (e) {
                       Get.snackbar('Error', e.toString());
                     }

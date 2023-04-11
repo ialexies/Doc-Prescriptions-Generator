@@ -29,12 +29,12 @@ class SignInWidget extends StatelessWidget {
         );
       },
       actions: [
-        AuthStateChangeAction<SignedIn>((context, state) {
+        AuthStateChangeAction<SignedIn>((context, state) async {
           final auth = FirebaseAuth.instance;
           final user = auth.currentUser;
           final uid = user?.uid;
 
-          FirebaseFirestore.instance
+          await FirebaseFirestore.instance
               .collection('users')
               .doc(uid)
               .update({})
@@ -43,7 +43,7 @@ class SignInWidget extends StatelessWidget {
                 log('Failed to add user: $err');
               });
 
-          Navigator.pushReplacementNamed(context, '/home');
+          await Navigator.pushReplacementNamed(context, '/home');
         }),
       ],
     );

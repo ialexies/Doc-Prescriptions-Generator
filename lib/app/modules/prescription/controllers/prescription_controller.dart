@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class PrescriptionController extends GetxController {
-  final prescriptions =
-      FirebaseFirestore.instance.collectionGroup('prescriptions').snapshots();
-
   final count = 0.obs;
   @override
   void onInit() {
+    print(' PrescriptionController start');
     super.onInit();
   }
 
@@ -18,6 +15,7 @@ class PrescriptionController extends GetxController {
 
   @override
   void onClose() {
+    print(' PrescriptionController ended');
     super.onClose();
   }
 
