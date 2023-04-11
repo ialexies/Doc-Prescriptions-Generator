@@ -14,7 +14,9 @@ class AppPages {
   static final routes = <GetPage<dynamic>>[
     GetPage(
       name: _Paths.home,
-      page: () => const HomeView(),
+      page: () {
+        return HomeView();
+      },
       binding: HomeBinding(),
     ),
     GetPage(
