@@ -7,23 +7,24 @@ environment:
 
 dependencies: 
   bloc: ^8.1.1
-  flutter_bloc: ^8.1.2
-  intl: ^0.17.0
-  get: 4.6.5
+  cloud_firestore: ^4.5.0
+  firebase_auth: ^4.4.0
+  firebase_core: ^2.9.0
   flutter: 
     sdk: flutter
+  flutter_bloc: ^8.1.2
   flutter_localizations: 
     sdk: flutter
-  firebase_core: ^2.9.0
-  firebase_auth: ^4.4.0
-  cloud_firestore: ^4.5.0
+
+  get: 4.6.5
+  intl: ^0.17.0
 
 dev_dependencies: 
   bloc_test: ^9.1.1
-  mocktail: ^0.3.0
-  very_good_analysis: ^3.1.0
   flutter_test: 
     sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^3.1.0
 
 flutter: 
   uses-material-design: true

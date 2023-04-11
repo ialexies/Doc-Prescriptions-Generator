@@ -1,18 +1,17 @@
+import 'package:doc_prescriptions/app/modules/home/bindings/home_binding.dart';
+import 'package:doc_prescriptions/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
-
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const initial = Routes.home;
 
-  static final routes = [
+  static final routes = <GetPage<dynamic>>[
     GetPage(
-      name: _Paths.HOME,
+      name: _Paths.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
