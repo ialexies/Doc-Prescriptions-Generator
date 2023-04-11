@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "427479116956",
+    "project_id": "doc-prescribe",
+    "storage_bucket": "doc-prescribe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427479116956:android:afee9e51d4259196ce5159",
+        "android_client_info": {
+          "package_name": "com.doc_prescriptions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427479116956-jogtt7c4omcbph8jmpponmaarc5hugns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYB-mU3yqHigwiyPdzLAe_PTuaSgrQcSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427479116956-jogtt7c4omcbph8jmpponmaarc5hugns.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "427479116956-iaoojtuhn4p8l6nkqdgp2kggtioibqmn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.verygoodcore.doc-prescriptions"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427479116956:android:fb5a880735a057f1ce5159",
+        "android_client_info": {
+          "package_name": "com.doc_prescriptions.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427479116956-jogtt7c4omcbph8jmpponmaarc5hugns.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYB-mU3yqHigwiyPdzLAe_PTuaSgrQcSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427479116956-jogtt7c4omcbph8jmpponmaarc5hugns.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "427479116956-iaoojtuhn4p8l6nkqdgp2kggtioibqmn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.verygoodcore.doc-prescriptions"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
