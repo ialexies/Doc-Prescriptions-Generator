@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:doc_prescriptions/app/app.dart';
 import 'package:doc_prescriptions/bootstrap.dart';
 import 'package:doc_prescriptions/firebase_options.dart';
+import 'package:doc_prescriptions/initialize_controllers.dart';
 import 'package:doc_prescriptions/initialize_repositories.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ void main() async {
   // await initServices();
 
   await initializeRepositories();
+  await initializeControllers();
   await bootstrap(() => const App());
 }
 
