@@ -137,8 +137,13 @@ class AuthRepository {
   }
 
   /// Sign out
-  Future<void> signout() async {
-    await firebaseAuth.signOut();
+  Future<bool> signout() async {
+    try {
+      await firebaseAuth.signOut();
+      return true;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<void> updatePhotoUrl(String photoUrl) async {

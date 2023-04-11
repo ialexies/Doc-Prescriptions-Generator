@@ -2,32 +2,33 @@ name: doc_prescriptions
 version: 1.0.0+1
 publish_to: none
 description: A Very Good Project created by Very Good CLI.
-environment: 
+environment:
   sdk: '>=2.18.0 <3.0.0'
 
-dependencies: 
+dependencies:
+  authentication_repository:
+    path: packages/authentication_repository
   bloc: ^8.1.1
   cloud_firestore: ^4.5.0
   firebase_auth: ^4.4.0
   firebase_core: ^2.9.0
-  flutter: 
+  flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
-  flutter_localizations: 
+  flutter_localizations:
     sdk: flutter
+  flutter_screenutil: ^5.7.0
   flutterfire_ui: ^0.4.3+20
-
   get: 4.6.5
   intl: ^0.17.0
 
-dev_dependencies: 
+dev_dependencies:
   bloc_test: ^9.1.1
-  flutter_test: 
+  flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
   very_good_analysis: ^3.1.0
 
-flutter: 
+flutter:
   uses-material-design: true
   generate: true
-
