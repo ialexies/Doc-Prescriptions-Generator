@@ -2,6 +2,7 @@ import 'package:doc_prescriptions/app/modules/home/bindings/home_binding.dart';
 import 'package:doc_prescriptions/app/modules/home/signin/signin_widget.dart';
 import 'package:doc_prescriptions/app/modules/home/views/home_view.dart';
 import 'package:doc_prescriptions/app/modules/prescription/bindings/prescription_binding.dart';
+import 'package:doc_prescriptions/app/modules/prescription/views/prescription_add_view.dart';
 import 'package:doc_prescriptions/app/modules/prescription/views/prescription_details_view.dart';
 import 'package:doc_prescriptions/app/modules/prescription/views/prescription_view.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -37,6 +38,13 @@ class AppPages {
       name: _Paths.prescriptionDetails,
       page: () {
         return PrescriptionDetailsView();
+      },
+      binding: PrescriptionBinding(),
+    ),
+    GetPage(
+      name: _Paths.prescriptionAdd,
+      page: () {
+        return const PrescriptionAddView();
       },
       binding: PrescriptionBinding(),
     ),

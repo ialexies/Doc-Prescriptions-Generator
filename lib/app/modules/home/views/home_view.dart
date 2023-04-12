@@ -1,6 +1,7 @@
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/widgets/dp_drawer.dart';
 import 'package:doc_prescriptions/app/modules/prescription/views/prescription_view.dart';
+import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,6 +27,10 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       drawer: const DPDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.prescriptionAdd),
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -7,6 +7,7 @@ abstract class Routes {
   static const signin = _Paths.signin;
   static const prescription = _Paths.prescription;
   static const prescriptionDetails = _Paths.prescriptionDetails;
+  static const prescriptionAdd = _Paths.prescriptionAdd;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const signin = '/signin';
   static const prescription = '/prescription';
   static const prescriptionDetails = '/prescription/details';
+  static const prescriptionAdd = '/prescription/add';
 }
