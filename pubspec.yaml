@@ -9,6 +9,8 @@ dependencies:
   authentication_repository:
     path: packages/authentication_repository
   bloc: ^8.1.1
+  client_repository:
+    path: packages/client_repository
   cloud_firestore: ^4.5.0
   firebase_auth: ^4.4.0
   firebase_core: ^2.9.0
@@ -21,8 +23,11 @@ dependencies:
   flutterfire_ui: ^0.4.3+20
   get: 4.6.5
   intl: ^0.17.0
-  client_repository:
-    path: packages/client_repository
+  keyboard_actions: ^4.2.0
+  my_core_pckg:
+    path: packages/my_core_pckg
+  reactive_forms: ^14.1.0
+  simple_animations: ^5.0.0+3
 
 dev_dependencies:
   bloc_test: ^9.1.1
