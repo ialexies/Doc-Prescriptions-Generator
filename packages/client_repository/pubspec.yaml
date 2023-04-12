@@ -1,5 +1,5 @@
-name: prescription_repository
-description: prescription repository
+name: client_repository
+description: client repository
 version: 0.1.0+1
 publish_to: none
 

@@ -1,10 +1,11 @@
+import 'package:doc_prescriptions/app/modules/client/bindings/prescription_binding.dart';
+import 'package:doc_prescriptions/app/modules/client/views/client_add_view.dart';
+import 'package:doc_prescriptions/app/modules/client/views/client_details_view.dart';
 import 'package:doc_prescriptions/app/modules/home/bindings/home_binding.dart';
 import 'package:doc_prescriptions/app/modules/home/signin/signin_widget.dart';
 import 'package:doc_prescriptions/app/modules/home/views/home_view.dart';
-import 'package:doc_prescriptions/app/modules/prescription/bindings/prescription_binding.dart';
-import 'package:doc_prescriptions/app/modules/prescription/views/prescription_add_view.dart';
-import 'package:doc_prescriptions/app/modules/prescription/views/prescription_details_view.dart';
-import 'package:doc_prescriptions/app/modules/prescription/views/prescription_view.dart';
+import 'package:doc_prescriptions/app/modules/client/views/client_view.dart';
+
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 
@@ -31,22 +32,22 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.prescription,
-      page: () => const PrescriptionView(),
-      binding: PrescriptionBinding(),
+      page: () => const ClientView(),
+      binding: ClientBinding(),
     ),
     GetPage(
       name: _Paths.prescriptionDetails,
       page: () {
-        return PrescriptionDetailsView();
+        return ClientDetailsView();
       },
-      binding: PrescriptionBinding(),
+      binding: ClientBinding(),
     ),
     GetPage(
       name: _Paths.prescriptionAdd,
       page: () {
-        return const PrescriptionAddView();
+        return const ClientAddView();
       },
-      binding: PrescriptionBinding(),
+      binding: ClientBinding(),
     ),
   ];
 }

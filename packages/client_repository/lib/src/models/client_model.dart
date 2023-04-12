@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'dart:convert';
 
-import 'package:prescription_repository/src/models/prescription_model.dart';
+import 'package:client_repository/src/models/client_model.dart';
+import 'package:client_repository/src/models/prescription_model.dart';
 
 ///
 class ClientModel {
@@ -15,6 +16,7 @@ class ClientModel {
   String? contact;
 
   List<PrescriptionModel>? prescription;
+
   ClientModel({
     this.clientLastName,
     this.clientFirstName,
@@ -36,16 +38,9 @@ class ClientModel {
       clientLastName: map['clientLastName'] == null
           ? ''
           : '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}',
-      // clientLastName: map['clientLastName'] != ''
-      //     ? '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}'
-      //     : '',
       clientFirstName: map['clientFirstName'] == null
           ? ''
           : '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}',
-
-      //  map['clientFirstName'] != ''
-      //     ? '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}'
-      //     : '',
       contact: map['contact'] != null ? map['contact'] as String : '',
       prescription: map['prescription'] == null
           ? []

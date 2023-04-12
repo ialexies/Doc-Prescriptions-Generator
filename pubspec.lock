@@ -80,6 +80,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  client_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/client_repository"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   clock:
     dependency: transitive
     description:
@@ -580,13 +587,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-  prescription_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/prescription_repository"
-      relative: true
-    source: path
-    version: "0.1.0+1"
   provider:
     dependency: transitive
     description:

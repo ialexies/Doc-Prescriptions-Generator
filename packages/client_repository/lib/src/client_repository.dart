@@ -1,5 +1,5 @@
-/// {@template prescription_repository}
-/// prescription repository
+/// {@template client_repository}
+/// client repository
 /// {@endtemplate}
 ///
 ///
@@ -7,15 +7,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 ///
-class PrescriptionRepository {
-  /// {@macro prescription_repository}
-  PrescriptionRepository(this.firebaseAuth);
+class ClientRepository {
+  /// {@macro client_repository}
+  ClientRepository(this.firebaseAuth);
 
   ///
   FirebaseAuth firebaseAuth;
 
-  /// query for prescription collection from cloud firestore
-  Stream<QuerySnapshot<Map<String, dynamic>>> prescriptionCol() =>
+  /// query for client collection from cloud firestore
+  Stream<QuerySnapshot<Map<String, dynamic>>> clients() =>
       FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseAuth.currentUser?.uid ?? '')
@@ -23,7 +23,7 @@ class PrescriptionRepository {
           .snapshots();
 
   ///
-  Stream<DocumentSnapshot<Map<String, dynamic>>> prescriptionColDetails(
+  Stream<DocumentSnapshot<Map<String, dynamic>>> clientColDetails(
     String selectedClientId,
   ) =>
       FirebaseFirestore.instance

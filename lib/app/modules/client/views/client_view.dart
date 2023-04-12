@@ -1,13 +1,13 @@
+import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_prescriptions/app/modules/prescription/controllers/prescription_controller.dart';
+import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:prescription_repository/prescription_repository.dart';
 
-class PrescriptionView extends GetView<PrescriptionController> {
-  const PrescriptionView({super.key});
+class ClientView extends GetView<ClientController> {
+  const ClientView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class PrescriptionView extends GetView<PrescriptionController> {
       mainAxisSize: MainAxisSize.min,
       children: [
         StreamBuilder<QuerySnapshot>(
-          stream: controller.prescriptionRepository.prescriptionCol(),
+          stream: controller.clientRepository.clients(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {

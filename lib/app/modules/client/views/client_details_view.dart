@@ -1,24 +1,23 @@
 // ignore_for_file: cast_nullable_to_non_nullable, require_trailing_commas
 
+import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doc_prescriptions/app/modules/prescription/controllers/prescription_controller.dart';
+import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:prescription_repository/prescription_repository.dart';
 
-class PrescriptionDetailsView extends StatefulWidget {
-  PrescriptionDetailsView({super.key});
+class ClientDetailsView extends StatefulWidget {
+  ClientDetailsView({super.key});
 
   @override
-  State<PrescriptionDetailsView> createState() =>
-      _PrescriptionDetailsViewState();
+  State<ClientDetailsView> createState() => _ClientDetailsViewState();
 }
 
-class _PrescriptionDetailsViewState extends State<PrescriptionDetailsView> {
+class _ClientDetailsViewState extends State<ClientDetailsView> {
   final selectedClientId = Get.arguments as String;
 
-  final controller = Get.find<PrescriptionController>();
+  final controller = Get.find<ClientController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +27,7 @@ class _PrescriptionDetailsViewState extends State<PrescriptionDetailsView> {
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(
-        stream: controller.prescriptionRepository
-            .prescriptionColDetails(selectedClientId),
+        stream: controller.clientRepository.clientColDetails(selectedClientId),
         builder: (
           BuildContext context,
           AsyncSnapshot<DocumentSnapshot> snapshot,
