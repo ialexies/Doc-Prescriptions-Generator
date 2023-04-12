@@ -14,7 +14,7 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Doc Prescriptions'),
+        title: const Text('Client Details'),
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(

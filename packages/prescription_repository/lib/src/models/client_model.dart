@@ -33,20 +33,27 @@ class ClientModel {
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      clientLastName: map['clientLastName'] != ''
-          ? '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}'
-          : null,
-      clientFirstName: map['clientFirstName'] != ''
-          ? '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}'
-          : null,
+      clientLastName: map['clientLastName'] == null
+          ? ''
+          : '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}',
+      // clientLastName: map['clientLastName'] != ''
+      //     ? '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}'
+      //     : '',
+      clientFirstName: map['clientFirstName'] == null
+          ? ''
+          : '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}',
+
+      //  map['clientFirstName'] != ''
+      //     ? '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}'
+      //     : '',
       contact: map['contact'] != null ? map['contact'] as String : '',
-      prescription: map['prescription'] != null
-          ? List<PrescriptionModel>.from(
+      prescription: map['prescription'] == null
+          ? []
+          : List<PrescriptionModel>.from(
               (map['prescription'] as List<dynamic>).map<PrescriptionModel?>(
                 (x) => PrescriptionModel.fromMap(x as Map<String, dynamic>),
               ),
-            )
-          : [],
+            ),
     );
   }
 
