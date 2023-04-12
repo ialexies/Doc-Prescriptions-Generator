@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:prescription_repository/prescription_repository.dart';
 
 class PrescriptionController extends GetxController {
-  final count = 0.obs;
+  final prescriptionRepository = Get.find<PrescriptionRepository>();
   @override
   void onInit() {
     print(' PrescriptionController start');
@@ -18,6 +19,4 @@ class PrescriptionController extends GetxController {
     print(' PrescriptionController ended');
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
