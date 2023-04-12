@@ -16,9 +16,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // TODO(ialexies): initialize provider here later
-  // await initServices();
-
   await initializeRepositories();
   await initializeControllers();
   await bootstrap(() => const App());

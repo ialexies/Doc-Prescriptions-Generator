@@ -5,7 +5,9 @@ class PrescriptionBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PrescriptionController>(
-      () => PrescriptionController(),
+      () {
+        return PrescriptionController();
+      },
     );
   }
 }

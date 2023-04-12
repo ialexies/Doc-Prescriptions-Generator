@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'dart:convert';
 
 import 'package:prescription_repository/src/models/prescription_model.dart';
@@ -27,16 +27,17 @@ class ClientModel {
       'clientLastName': clientLastName,
       'clientFirstName': clientFirstName,
       'contact': contact,
-      'prescription': prescription?.map((x) => x.toMap()).toList(),
+      'prescription': prescription?.map((x) => x.toMap()).toList() ?? {},
     };
   }
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      clientLastName:
-          map['clientLastName'] != '' ? map['clientLastName'] as String : null,
+      clientLastName: map['clientLastName'] != ''
+          ? '${(map['clientLastName'] as String)[0].toUpperCase()}${(map['clientLastName'] as String).substring(1).toLowerCase()}'
+          : null,
       clientFirstName: map['clientFirstName'] != ''
-          ? map['clientFirstName'] as String
+          ? '${(map['clientFirstName'] as String)[0].toUpperCase()}${(map['clientFirstName'] as String).substring(1).toLowerCase()}'
           : null,
       contact: map['contact'] != null ? map['contact'] as String : '',
       prescription: map['prescription'] != null

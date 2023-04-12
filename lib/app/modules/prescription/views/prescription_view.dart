@@ -15,7 +15,6 @@ class PrescriptionView extends GetView<PrescriptionController> {
       mainAxisSize: MainAxisSize.min,
       children: [
         StreamBuilder<QuerySnapshot>(
-          // stream: controller.prescriptionRepository.prescriptionCol(),
           stream: controller.prescriptionRepository.prescriptionCol(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
