@@ -6,6 +6,7 @@ class HomeController extends GetxController {
   final count = 0.obs;
   void increment() => count.value++;
   Rx<int> selectedIndex = 0.obs;
+
   void onItemTapped(int index) {
     selectedIndex.value = index;
   }

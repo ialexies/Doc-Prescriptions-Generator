@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_prescriptions/app/modules/prescription/controllers/prescription_controller.dart';
+import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class PrescriptionView extends GetView<PrescriptionController> {
       mainAxisSize: MainAxisSize.min,
       children: [
         StreamBuilder<QuerySnapshot>(
+          // stream: controller.prescriptionRepository.prescriptionCol(),
           stream: controller.prescriptionRepository.prescriptionCol(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -29,18 +31,20 @@ class PrescriptionView extends GetView<PrescriptionController> {
 
             return Builder(
               builder: (context) {
+                if (!snapshot.hasData) const SizedBox.shrink();
                 return ListView(
                   padding: const EdgeInsets.all(15),
                   shrinkWrap: true,
                   children:
                       snapshot.data!.docs.map((DocumentSnapshot document) {
+                    if (document.data() == null) const SizedBox.shrink();
                     final data = document.data()! as Map<String, dynamic>;
-                    final dataSerialized = Prescription.fromMap(data);
+                    final dataSerialized = ClientModel.fromMap(data);
                     return Padding(
                       padding: const EdgeInsets.only(top: 5),
                       child: ListTile(
-                        title: Text(dataSerialized.clientFirstName),
-                        subtitle: Text(dataSerialized.contact),
+                        title: Text(dataSerialized.clientFirstName ?? ''),
+                        subtitle: Text(dataSerialized.contact ?? ''),
                         trailing: IconButton(
                           onPressed: () {},
                           icon: Icon(
@@ -48,7 +52,7 @@ class PrescriptionView extends GetView<PrescriptionController> {
                             size: 90.sp,
                           ),
                         ),
-                        onTap: () => Get.snackbar('title', ''),
+                        onTap: () => Get.toNamed(Routes.prescriptionDetails),
                         dense: true,
                         hoverColor: Colors.amber,
                         style: ListTileStyle.drawer,

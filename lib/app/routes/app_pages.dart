@@ -1,3 +1,4 @@
+import 'package:doc_prescriptions/app/modules/prescription/views/prescription_details_view.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 
@@ -29,8 +30,13 @@ class AppPages {
       },
     ),
     GetPage(
-      name: _Paths.PRESCRIPTION,
+      name: _Paths.prescription,
       page: () => const PrescriptionView(),
+      binding: PrescriptionBinding(),
+    ),
+    GetPage(
+      name: _Paths.prescriptionDetails,
+      page: () => const PrescriptionDetailsView(),
       binding: PrescriptionBinding(),
     ),
   ];
