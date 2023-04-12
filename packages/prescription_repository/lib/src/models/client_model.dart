@@ -14,8 +14,7 @@ class ClientModel {
   ///
   String? contact;
 
-  PrescriptionModel? prescription;
-
+  List<PrescriptionModel>? prescription;
   ClientModel({
     this.clientLastName,
     this.clientFirstName,
@@ -28,23 +27,25 @@ class ClientModel {
       'clientLastName': clientLastName,
       'clientFirstName': clientFirstName,
       'contact': contact,
-      'prescription': prescription?.toMap(),
+      'prescription': prescription?.map((x) => x.toMap()).toList(),
     };
   }
 
   factory ClientModel.fromMap(Map<String, dynamic> map) {
     return ClientModel(
-      clientLastName: map['clientLastName'] != null
-          ? map['clientLastName'] as String
-          : null,
-      clientFirstName: map['clientFirstName'] != null
+      clientLastName:
+          map['clientLastName'] != '' ? map['clientLastName'] as String : null,
+      clientFirstName: map['clientFirstName'] != ''
           ? map['clientFirstName'] as String
           : null,
-      contact: map['contact'] != null ? map['contact'] as String : null,
+      contact: map['contact'] != null ? map['contact'] as String : '',
       prescription: map['prescription'] != null
-          ? PrescriptionModel.fromMap(
-              map['prescription'] as Map<String, dynamic>)
-          : null,
+          ? List<PrescriptionModel>.from(
+              (map['prescription'] as List<dynamic>).map<PrescriptionModel?>(
+                (x) => PrescriptionModel.fromMap(x as Map<String, dynamic>),
+              ),
+            )
+          : [],
     );
   }
 

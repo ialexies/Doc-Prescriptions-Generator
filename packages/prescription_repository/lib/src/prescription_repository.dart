@@ -14,6 +14,7 @@ class PrescriptionRepository {
   Stream<QuerySnapshot<Map<String, dynamic>>> prescriptionCol() =>
       FirebaseFirestore.instance.collectionGroup('prescriptions').snapshots();
 
+  ///
   Stream<DocumentSnapshot<Map<String, dynamic>>> prescriptionColDetails() =>
       FirebaseFirestore.instance
           .collection('users')

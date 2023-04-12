@@ -12,8 +12,9 @@ Future<void> initializeRepositories() async {
   Get
     ..put(
       AuthRepository(
-          firebaseAuth: FirebaseAuth.instance,
-          firebaseFirestore: FirebaseFirestore.instance),
+        firebaseAuth: FirebaseAuth.instance,
+        firebaseFirestore: FirebaseFirestore.instance,
+      ),
     )
     ..put(
       PrescriptionRepository(),
