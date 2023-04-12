@@ -17,7 +17,7 @@ Future<void> initializeRepositories() async {
       ),
     )
     ..put(
-      PrescriptionRepository(),
+      PrescriptionRepository(FirebaseAuth.instance),
     );
 
   log('Repositories Inititalized!');

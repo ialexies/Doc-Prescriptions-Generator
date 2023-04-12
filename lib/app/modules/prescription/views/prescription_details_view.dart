@@ -7,18 +7,29 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:prescription_repository/prescription_repository.dart';
 
-class PrescriptionDetailsView extends GetView<PrescriptionController> {
-  const PrescriptionDetailsView({super.key});
+class PrescriptionDetailsView extends StatefulWidget {
+  PrescriptionDetailsView({super.key});
+
+  @override
+  State<PrescriptionDetailsView> createState() =>
+      _PrescriptionDetailsViewState();
+}
+
+class _PrescriptionDetailsViewState extends State<PrescriptionDetailsView> {
+  final selectedClientId = Get.arguments as String;
+
+  final controller = Get.find<PrescriptionController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Client'),
+        title: Text('Client'),
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(
-        stream: controller.prescriptionRepository.prescriptionColDetails(),
+        stream: controller.prescriptionRepository
+            .prescriptionColDetails(selectedClientId),
         builder: (
           BuildContext context,
           AsyncSnapshot<DocumentSnapshot> snapshot,
@@ -81,7 +92,11 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
                               final med = client.prescription![index];
                               return ListTile(
                                 leading: Text(med.dossage ?? ''),
-                                title: Text(med.drugName ?? ''),
+                                title: Text(
+                                  med.drugName ?? '',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 subtitle: Text(med.details ?? ''),
                                 trailing: IconButton(
                                   onPressed: () {},
@@ -91,21 +106,6 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
                             },
                           ),
                         ),
-                        // Column(
-                        //   children: (client.prescription ?? [])
-                        //       .map(
-                        //         (e) => ListTile(
-                        //           leading: Text(e.dossage ?? ''),
-                        //           title: Text(e.drugName ?? ''),
-                        //           subtitle: Text(e.details ?? ''),
-                        //           trailing: IconButton(
-                        //             onPressed: () {},
-                        //             icon: const Icon(Icons.edit),
-                        //           ),
-                        //         ),
-                        //       )
-                        //       .toList(),
-                        // ),
                       ),
                     ),
                   ],

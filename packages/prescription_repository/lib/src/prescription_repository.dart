@@ -4,27 +4,32 @@
 ///
 ///
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 ///
 class PrescriptionRepository {
   /// {@macro prescription_repository}
-  PrescriptionRepository();
+  PrescriptionRepository(this.firebaseAuth);
+
+  ///
+  FirebaseAuth firebaseAuth;
 
   /// query for prescription collection from cloud firestore
   Stream<QuerySnapshot<Map<String, dynamic>>> prescriptionCol() =>
-      FirebaseFirestore.instance.collectionGroup('prescriptions').snapshots();
-
-  ///
-  Stream<DocumentSnapshot<Map<String, dynamic>>> prescriptionColDetails() =>
       FirebaseFirestore.instance
           .collection('users')
-          .doc('MprfvQYAx6UX2dHrqNsDE9uFesg2')
+          .doc(firebaseAuth.currentUser?.uid ?? '')
           .collection('prescriptions')
-          .doc('zAQ6O2v31h2rGzBhE0KL')
           .snapshots();
 
-  // .snapshots().where((event) => false);
+  ///
+  Stream<DocumentSnapshot<Map<String, dynamic>>> prescriptionColDetails(
+    String selectedClientId,
+  ) =>
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid ?? '')
+          .collection('prescriptions')
+          .doc(selectedClientId)
+          .snapshots();
 }
-//           .firestore.('zAQ6O2v31h2rGzBhE0KL')
-//           .snapshots();
-// }

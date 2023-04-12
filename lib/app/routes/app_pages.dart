@@ -35,7 +35,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.prescriptionDetails,
-      page: () => const PrescriptionDetailsView(),
+      page: () {
+        return PrescriptionDetailsView();
+      },
       binding: PrescriptionBinding(),
     ),
   ];

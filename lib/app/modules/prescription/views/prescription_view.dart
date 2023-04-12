@@ -51,7 +51,10 @@ class PrescriptionView extends GetView<PrescriptionController> {
                             size: 90.sp,
                           ),
                         ),
-                        onTap: () => Get.toNamed(Routes.prescriptionDetails),
+                        onTap: () => Get.toNamed(
+                          Routes.prescriptionDetails,
+                          arguments: document.id,
+                        ),
                         dense: true,
                         hoverColor: Colors.amber,
                         style: ListTileStyle.drawer,
