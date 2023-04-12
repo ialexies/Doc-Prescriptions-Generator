@@ -14,7 +14,7 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Client Details'),
+        title: const Text('Client'),
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(
@@ -28,9 +28,7 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Expanded(
-              child: Center(child: CircularProgressIndicator.adaptive()),
-            );
+            return const Center(child: CircularProgressIndicator.adaptive());
           }
           if (snapshot.data == null) return const SizedBox.shrink();
           if (snapshot.data!.data() == null) {
@@ -73,21 +71,41 @@ class PrescriptionDetailsView extends GetView<PrescriptionController> {
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         margin: const EdgeInsets.all(20),
-                        child: Column(
-                          children: (client.prescription ?? [])
-                              .map(
-                                (e) => ListTile(
-                                  leading: Text(e.dossage ?? ''),
-                                  title: Text(e.drugName ?? ''),
-                                  subtitle: Text(e.details ?? ''),
-                                  trailing: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.edit),
-                                  ),
+                        child: Scrollbar(
+                          child: ListView.separated(
+                            itemCount: (client.prescription ?? []).length,
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(),
+                            itemBuilder: (BuildContext context, int index) {
+                              final med = client.prescription![index];
+                              return ListTile(
+                                leading: Text(med.dossage ?? ''),
+                                title: Text(med.drugName ?? ''),
+                                subtitle: Text(med.details ?? ''),
+                                trailing: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.edit),
                                 ),
-                              )
-                              .toList(),
+                              );
+                            },
+                          ),
                         ),
+                        // Column(
+                        //   children: (client.prescription ?? [])
+                        //       .map(
+                        //         (e) => ListTile(
+                        //           leading: Text(e.dossage ?? ''),
+                        //           title: Text(e.drugName ?? ''),
+                        //           subtitle: Text(e.details ?? ''),
+                        //           trailing: IconButton(
+                        //             onPressed: () {},
+                        //             icon: const Icon(Icons.edit),
+                        //           ),
+                        //         ),
+                        //       )
+                        //       .toList(),
+                        // ),
                       ),
                     ),
                   ],
