@@ -365,7 +365,7 @@ class _DocPrescTextFieldState extends State<DocPrescTextField>
                     onChanged: (val) {
                       widget.onChanged!(val);
                     },
-                    style: widget.textStyle ?? TextStyle(fontSize: 60.sp),
+                    style: widget.textStyle ?? TextStyle(fontSize: 50.sp),
                     keyboardType: widget.keyboardType,
                     textInputAction: widget.textInputAction,
                     inputFormatters: widget.inputFormatters,

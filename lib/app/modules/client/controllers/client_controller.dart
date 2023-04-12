@@ -5,14 +5,23 @@ import 'package:reactive_forms/reactive_forms.dart';
 class ClientController extends GetxController {
   final clientRepository = Get.find<ClientRepository>();
 
+  final editPrescriptionList = <PrescriptionModel>[].obs;
+
   final rxFormGroup = fb.group(
     {
-      'firstName': FormControl<String>(
+      'clientFirstName': FormControl<String>(
         value: '',
         validators: [Validators.required],
         asyncValidatorsDebounceTime: 3000,
       ),
-      'lastName': FormControl<String>(
+      'clientLastName': FormControl<String>(
+        value: '',
+        validators: [
+          Validators.required,
+        ],
+        asyncValidatorsDebounceTime: 3000,
+      ),
+      'contact': FormControl<String>(
         value: '',
         validators: [
           Validators.required,
