@@ -36,6 +36,7 @@ class ClientAddView extends GetView<ClientController> {
                   ? null
                   : () {
                       controller.addClient();
+
                       Get.back();
                     },
               style: ElevatedButton.styleFrom(

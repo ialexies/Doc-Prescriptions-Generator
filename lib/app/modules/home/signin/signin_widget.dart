@@ -45,7 +45,9 @@ class SignInWidget extends StatelessWidget {
                 log('Failed to add user: $err');
               });
 
-          await Navigator.pushReplacementNamed(context, '/home');
+          if (context.mounted) {
+            await Navigator.pushReplacementNamed(context, '/home');
+          }
         }),
       ],
     );
