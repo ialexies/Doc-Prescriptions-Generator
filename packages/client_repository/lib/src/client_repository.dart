@@ -6,6 +6,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:client_repository/prescription_repository.dart';
 import 'package:client_repository/src/models/prescription_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,6 +62,9 @@ class ClientRepository {
       });
     } catch (e) {
       log('error in clientrepo addclient $e');
+      throw ClientRepositoryFailure(
+        message: '$e',
+      );
     }
   }
 }
