@@ -1,6 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
-import 'package:client_repository/src/models/prescription_model.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -156,10 +153,10 @@ class ClientAddView extends GetView<ClientController> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        final _currIndex = controller
+                                        final currIndex = controller
                                             .editPrescriptionList
                                             .indexOf(med);
-                                        newMedDialog(forEditIndex: _currIndex);
+                                        newMedDialog(forEditIndex: currIndex);
                                       },
                                       icon: const Icon(Icons.edit),
                                     ),
