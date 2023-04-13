@@ -1,6 +1,8 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:client_repository/prescription_repository.dart';
 import 'package:get/get.dart';
-import 'package:reactive_forms/reactive_forms.dart';
 
 class ClientController extends GetxController {
   final clientRepository = Get.find<ClientRepository>();
@@ -11,6 +13,40 @@ class ClientController extends GetxController {
   final clientFirstNameEdit = ''.obs;
   final clientLastNameEdit = ''.obs;
   final clientContactNameEdit = ''.obs;
+
+  final addMedDrugName = ''.obs;
+  final addMedDossage = ''.obs;
+  final addMedDetails = ''.obs;
+
+  void addMedInPrescription() {
+    editPrescriptionList.add(
+      PrescriptionModel(
+        drugName: addMedDrugName.value,
+        details: addMedDetails.value,
+        dossage: addMedDossage.value,
+      ),
+    );
+    update();
+
+    clearNewDrugValues();
+  }
+
+  void clearNewDrugValues() {
+    addMedDrugName.value = '';
+    addMedDossage.value = '';
+    addMedDetails.value = '';
+    log('added med');
+  }
+
+  bool isValidForAddMed() {
+    return addMedDetails.value == '' ||
+        addMedDrugName.value == '' ||
+        addMedDossage.value == '';
+  }
+
+  void removeDrugFromPrescription(PrescriptionModel med) {
+    editPrescriptionList.remove(med);
+  }
 
   // final rxFormGroup = fb.group(
   //   {
