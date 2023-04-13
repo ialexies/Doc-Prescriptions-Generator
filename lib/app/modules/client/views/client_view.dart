@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
@@ -45,7 +47,113 @@ class ClientView extends GetView<ClientController> {
                         title: Text(dataSerialized.clientFirstName ?? ''),
                         subtitle: Text(dataSerialized.contact ?? ''),
                         trailing: IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await Get.dialog(
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 40,
+                                    ),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20),
+                                        child: Material(
+                                          child: Column(
+                                            children: [
+                                              const SizedBox(height: 10),
+                                              const Text(
+                                                'Confirm',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 15),
+                                              const Text(
+                                                'Are you sure you want to deletethis client?',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(height: 20),
+                                              //Buttons
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        foregroundColor:
+                                                            const Color(
+                                                                0xFFFFFFFF),
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        minimumSize:
+                                                            const Size(0, 45),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      onPressed: Get.back,
+                                                      child: const Text(
+                                                        'NO',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        foregroundColor:
+                                                            const Color(
+                                                                0xFFFFFFFF),
+                                                        backgroundColor:
+                                                            Colors.amber,
+                                                        minimumSize:
+                                                            const Size(0, 45),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                      ),
+                                                      onPressed: () async {
+                                                        Get.back();
+                                                        try {
+                                                          await deleteClient(
+                                                            document,
+                                                          );
+                                                        } catch (e) {
+                                                          log(e.toString());
+                                                          // Get.back();
+                                                        }
+                                                      },
+                                                      child: const Text(
+                                                        'YES',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                            // await deleteClient(document);
+                          },
                           icon: Icon(
                             Icons.delete,
                             size: 90.sp,
@@ -72,5 +180,21 @@ class ClientView extends GetView<ClientController> {
         )
       ],
     );
+  }
+
+  Future<void> deleteClient(DocumentSnapshot<Object?> document) async {
+    try {
+      await controller.deleteClient(document.id);
+      Get.snackbar(
+        'Deleted',
+        'Successfully Deleted',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(30),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
   }
 }

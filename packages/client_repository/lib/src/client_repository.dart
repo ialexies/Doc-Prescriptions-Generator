@@ -67,4 +67,18 @@ class ClientRepository {
       );
     }
   }
+
+  ///
+  Future<void> deleteClient({required String uid}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid ?? '')
+          .collection('prescriptions')
+          .doc(uid)
+          .delete();
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

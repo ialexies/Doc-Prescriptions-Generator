@@ -92,4 +92,13 @@ class ClientController extends GetxController {
       rethrow;
     }
   }
+
+  Future<void> deleteClient(String id) async {
+    log('fdf');
+    try {
+      await clientRepository.deleteClient(uid: id);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
