@@ -26,12 +26,13 @@ class ClientAddView extends GetView<ClientController> {
       ),
       bottomSheet: Obx(
         () {
-          final a = controller.addMedDetails;
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: ElevatedButton(
-              onPressed:
-                  (controller.clientFirstNameEdit.value.isEmpty) ? null : () {},
+              onPressed: (controller.clientFirstNameEdit.value.isEmpty ||
+                      controller.clientContactNameEdit.value.isEmpty)
+                  ? null
+                  : () {},
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(
                   40,
