@@ -38,6 +38,14 @@ class ClientController extends GetxController {
     clearNewDrugValues();
   }
 
+  void editMedInPrescription(int forEditIndex) {
+    editPrescriptionList[forEditIndex] = PrescriptionModel(
+      drugName: addMedDrugName.value,
+      details: addMedDetails.value,
+      dossage: addMedDossage.value,
+    );
+  }
+
   void clearNewDrugValues() {
     addMedDrugName.value = '';
     addMedDossage.value = '';
