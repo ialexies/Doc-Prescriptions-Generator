@@ -45,7 +45,7 @@ class AppPages {
     GetPage(
       name: _Paths.prescriptionAdd,
       page: () {
-        return const ClientAddView();
+        return ClientAddView();
       },
       binding: ClientBinding(),
     ),

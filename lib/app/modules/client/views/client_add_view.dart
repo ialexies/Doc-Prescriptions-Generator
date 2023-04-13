@@ -1,5 +1,6 @@
+import 'package:client_repository/prescription_repository.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
-import 'package:doc_prescriptions/app/modules/widgets/salondart_text_field.dart';
+
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,18 @@ class ClientAddView extends StatefulWidget {
 
 class _ClientAddViewState extends State<ClientAddView> {
   final controller = Get.find<ClientController>();
-
+  TextEditingController clientFirstNameController = TextEditingController();
+  TextEditingController clientLastNameController = TextEditingController();
+  TextEditingController clientContactNameController = TextEditingController();
+  final docPrecTextFieldDecor = InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    filled: true,
+    hintStyle: TextStyle(color: Colors.grey[800]),
+    hintText: '',
+    fillColor: Colors.white70,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,50 +36,70 @@ class _ClientAddViewState extends State<ClientAddView> {
         title: const Text('Add Client'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.prescriptionAdd),
+        onPressed: () {
+          // Get.defaultDialog(
+          //   title: 'Add medicine',
+          // );
+          controller.newClient.value = ClientModel(
+            clientFirstName: controller.clientFirstNameEdit.value,
+            clientLastName: controller.clientLastNameEdit.value,
+            contact: controller.clientContactNameEdit.value,
+            prescription: [],
+          );
+        },
         child: const Icon(Icons.add),
       ),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ReactiveForm(
-              formGroup: controller.rxFormGroup.value,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+            const SizedBox(
+              height: 15,
+            ),
+            Obx(
+              () => Text(controller.newClient.value.clientFirstName.toString()),
+            ),
+            Obx(
+              () => Text(controller.newClient.value.clientLastName.toString()),
+            ),
+            Obx(
+              () => Text(controller.newClient.value.contact.toString()),
+            ),
+            Obx(
+              () => Text(controller.newClient.value.prescription.toString()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Wrap(
+                spacing: 20,
+                runSpacing: 10,
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  ReactiveCustomTextField(
-                    labelText: 'First Name',
-                    formControlName: 'clientFirstName',
-                    validationMessages: (control) => {
-                      ValidationMessage.required: 'This field is required',
+                  TextFormField(
+                    controller: clientFirstNameController,
+                    onChanged: (_) {
+                      controller.clientFirstNameEdit.value = _;
                     },
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z ]')),
-                    ],
+                    decoration: docPrecTextFieldDecor.copyWith(
+                      hintText: 'First Name',
+                    ),
                   ),
-                  ReactiveCustomTextField(
-                    labelText: 'Last Name',
-                    formControlName: 'clientLastName',
-                    validationMessages: (control) => {
-                      ValidationMessage.required: 'This field is required',
+                  TextFormField(
+                    controller: clientLastNameController,
+                    onChanged: (_) {
+                      controller.clientLastNameEdit.value = _;
                     },
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z ]')),
-                    ],
+                    decoration: docPrecTextFieldDecor.copyWith(
+                      hintText: 'Last Name',
+                    ),
                   ),
-                  ReactiveCustomTextField(
-                    labelText: 'Mobile No.',
-                    formControlName: 'contact',
-                    validationMessages: (control) => {
-                      ValidationMessage.required: 'This field is required',
+                  TextFormField(
+                    controller: clientContactNameController,
+                    onChanged: (_) {
+                      controller.clientContactNameEdit.value = _;
                     },
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp('[0-9a-zA-Z ]')),
-                    ],
+                    decoration: docPrecTextFieldDecor.copyWith(
+                      hintText: 'Contact',
+                    ),
                   ),
                 ],
               ),
@@ -75,13 +107,14 @@ class _ClientAddViewState extends State<ClientAddView> {
             Container(
               height: 500.h,
               decoration: BoxDecoration(
-                  color: Colors.amber[50],
-                  border: Border.all(
-                    color: Colors.amber.shade800,
-                    width: .5,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
-              margin: const EdgeInsets.all(20),
+                color: Colors.amber[50],
+                border: Border.all(
+                  color: Colors.amber.shade800,
+                  width: .5,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              margin: const EdgeInsets.all(15),
               child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.editPrescriptionList.length,
