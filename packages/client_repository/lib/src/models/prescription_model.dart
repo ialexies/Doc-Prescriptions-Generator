@@ -19,6 +19,14 @@ class PrescriptionModel {
     };
   }
 
+  Map<String, dynamic> modelToMap(PrescriptionModel a) {
+    return <String, dynamic>{
+      'drugName': a.drugName,
+      'dossage': a.dossage,
+      'details': a.details,
+    };
+  }
+
   factory PrescriptionModel.fromMap(Map<String, dynamic> map) {
     return PrescriptionModel(
       drugName: map['drugName'] != null ? map['drugName'] as String : '',

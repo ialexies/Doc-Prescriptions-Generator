@@ -3,8 +3,10 @@
 /// {@endtemplate}
 ///
 ///
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:client_repository/src/models/prescription_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -36,7 +38,15 @@ class ClientRepository {
           .snapshots();
 
   ///
-  void addClient() {
+  void addClient({
+    required String clientFirstName,
+    required String clientLastName,
+    required String contact,
+    required List<PrescriptionModel> prescription,
+  }) {
+    final prescriptionJson =
+        prescription.map((e) => PrescriptionModel().modelToMap(e)).toList();
+
     try {
       FirebaseFirestore.instance
           .collection('users')
@@ -44,19 +54,13 @@ class ClientRepository {
           .collection('prescriptions')
           .doc()
           .set({
-        'clientFirstName': 'Test',
-        'clientLastName': 'test surname',
-        'contact': '5294565656',
-        'prescription': [
-          {
-            'details': 'fdfdfdf',
-            'dossage': '240ml',
-            'drugname': 'testmed',
-          }
-        ]
+        'clientFirstName': clientFirstName,
+        'clientLastName': clientLastName,
+        'contact': contact,
+        'prescription': prescriptionJson
       });
     } catch (e) {
-      log('error in clientrepo addclient ${e}');
+      log('error in clientrepo addclient $e');
     }
   }
 }

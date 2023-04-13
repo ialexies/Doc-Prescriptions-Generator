@@ -54,6 +54,11 @@ class ClientController extends GetxController {
   }
 
   void addClient() {
-    clientRepository.addClient();
+    clientRepository.addClient(
+      clientFirstName: clientFirstNameEdit.value,
+      clientLastName: clientLastNameEdit.value,
+      contact: clientContactNameEdit.value,
+      prescription: editPrescriptionList.value,
+    );
   }
 }
