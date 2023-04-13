@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
 import 'dart:convert';
-
-import 'package:client_repository/src/models/client_model.dart';
 import 'package:client_repository/src/models/prescription_model.dart';
 
 ///

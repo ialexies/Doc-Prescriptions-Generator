@@ -3,11 +3,11 @@
 /// {@endtemplate}
 ///
 ///
-import 'dart:convert';
-import 'dart:developer';
 
+// ignore_for_file: depend_on_referenced_packages
+
+import 'dart:developer';
 import 'package:client_repository/prescription_repository.dart';
-import 'package:client_repository/src/models/prescription_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

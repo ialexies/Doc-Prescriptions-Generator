@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -5,6 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ClientAddView extends GetView<ClientController> {
+  ClientAddView({super.key});
+
+  @override
   final controller = Get.find<ClientController>();
 
   final docPrecTextFieldDecor = InputDecoration(
@@ -38,7 +43,7 @@ class ClientAddView extends GetView<ClientController> {
                   40,
                 ),
               ),
-              child: Text('Add Client '),
+              child: const Text('Add Client '),
             ),
           );
         },
@@ -125,12 +130,12 @@ class ClientAddView extends GetView<ClientController> {
                                 title: Text(
                                   med.drugName ?? '',
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 subtitle: Text(med.details ?? ''),
                                 trailing: IconButton(
                                   onPressed: () {
-                                    // final currDrug = controller.editPrescriptionList.indexOf(index);
                                     controller.removeDrugFromPrescription(med);
                                   },
                                   icon: const Icon(Icons.delete),
@@ -191,7 +196,8 @@ class ClientAddView extends GetView<ClientController> {
                                               style: ElevatedButton.styleFrom(
                                                 minimumSize:
                                                     const Size.fromHeight(
-                                                        50), // NEW
+                                                  50,
+                                                ), // NEW
                                               ),
                                               onPressed:
                                                   controller.isValidForAddMed()

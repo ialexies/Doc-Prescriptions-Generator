@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class PrescriptionDetailsView extends StatefulWidget {
-  PrescriptionDetailsView({super.key});
+  const PrescriptionDetailsView({super.key});
 
   @override
   State<PrescriptionDetailsView> createState() =>
@@ -24,7 +24,7 @@ class _PrescriptionDetailsViewState extends State<PrescriptionDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Client'),
+        title: const Text('Client'),
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(

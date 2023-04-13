@@ -1,6 +1,6 @@
+import 'package:doc_prescriptions/app/modules/client/views/client_view.dart';
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/widgets/dp_drawer.dart';
-import 'package:doc_prescriptions/app/modules/client/views/client_view.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

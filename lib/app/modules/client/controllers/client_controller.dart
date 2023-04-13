@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:client_repository/prescription_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

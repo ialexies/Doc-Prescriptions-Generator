@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ClientDetailsView extends StatefulWidget {
-  ClientDetailsView({super.key});
+  const ClientDetailsView({super.key});
 
   @override
   State<ClientDetailsView> createState() => _ClientDetailsViewState();
@@ -23,7 +23,7 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Client'),
+        title: const Text('Client'),
         centerTitle: true,
       ),
       body: StreamBuilder<DocumentSnapshot>(

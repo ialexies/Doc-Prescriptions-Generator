@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_untyped_parameter
+
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
