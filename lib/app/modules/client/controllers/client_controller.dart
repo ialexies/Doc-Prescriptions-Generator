@@ -2,10 +2,17 @@ import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:client_repository/prescription_repository.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+enum AddClientStatus { initial, loading, success, failure }
 
 class ClientController extends GetxController {
   final clientRepository = Get.find<ClientRepository>();
+
+  final clientFirstNameController = TextEditingController();
+  final clientLastNameController = TextEditingController();
+  final clientContactNameController = TextEditingController();
 
   final editPrescriptionList = <PrescriptionModel>[].obs;
   final newClient = ClientModel(clientFirstName: 'fdf').obs;
@@ -17,6 +24,8 @@ class ClientController extends GetxController {
   final addMedDrugName = ''.obs;
   final addMedDossage = ''.obs;
   final addMedDetails = ''.obs;
+
+  final addClientStatus = AddClientStatus.initial.obs;
 
   void addMedInPrescription() {
     editPrescriptionList.add(
@@ -35,6 +44,10 @@ class ClientController extends GetxController {
     addMedDrugName.value = '';
     addMedDossage.value = '';
     addMedDetails.value = '';
+
+    clientContactNameController.text = '';
+    clientFirstNameController.text = '';
+    clientLastNameController.text = '';
     log('added med');
   }
 
@@ -44,24 +57,32 @@ class ClientController extends GetxController {
         addMedDossage.value == '';
   }
 
-  bool isValidForAddClient() {
-    return clientFirstNameEdit.value.isEmpty ||
-        clientContactNameEdit.value.isEmpty;
-  }
-
   void removeDrugFromPrescription(PrescriptionModel med) {
     editPrescriptionList.remove(med);
   }
 
+  bool isValidForAddClient() {
+    return (clientFirstNameEdit.value.isEmpty ||
+            clientContactNameEdit.value.isEmpty) &&
+        (addClientStatus.value != AddClientStatus.loading);
+  }
+
   void addClient() {
+    addClientStatus.value = AddClientStatus.loading;
     try {
       clientRepository.addClient(
         clientFirstName: clientFirstNameEdit.value,
         clientLastName: clientLastNameEdit.value,
         contact: clientContactNameEdit.value,
-        prescription: editPrescriptionList.value,
+        prescription: editPrescriptionList,
       );
+
+      editPrescriptionList.value = [];
+      clearNewDrugValues();
+
+      addClientStatus.value = AddClientStatus.initial;
     } catch (e) {
+      addClientStatus.value = AddClientStatus.initial;
       rethrow;
     }
   }

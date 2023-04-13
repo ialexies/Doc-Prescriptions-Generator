@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 
 class ClientAddView extends GetView<ClientController> {
   final controller = Get.find<ClientController>();
-  TextEditingController clientFirstNameController = TextEditingController();
-  TextEditingController clientLastNameController = TextEditingController();
-  TextEditingController clientContactNameController = TextEditingController();
+
   final docPrecTextFieldDecor = InputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
@@ -31,7 +29,10 @@ class ClientAddView extends GetView<ClientController> {
             child: ElevatedButton(
               onPressed: controller.isValidForAddClient()
                   ? null
-                  : controller.addClient,
+                  : () {
+                      controller.addClient();
+                      Get.back();
+                    },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(
                   40,
@@ -47,14 +48,6 @@ class ClientAddView extends GetView<ClientController> {
         builder: (context, isKeyboardVisible) {
           return Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Obx(() => Text(controller.clientFirstNameEdit.value)),
-                  Obx(() => Text(controller.clientLastNameEdit.value)),
-                  Obx(() => Text(controller.clientContactNameEdit.value)),
-                ],
-              ),
               const SizedBox(
                 height: 15,
               ),
@@ -65,7 +58,7 @@ class ClientAddView extends GetView<ClientController> {
                   runSpacing: 10,
                   children: [
                     TextFormField(
-                      controller: clientFirstNameController,
+                      controller: controller.clientFirstNameController,
                       onChanged: (_) {
                         controller.clientFirstNameEdit.value = _;
                       },
@@ -74,7 +67,7 @@ class ClientAddView extends GetView<ClientController> {
                       ),
                     ),
                     TextFormField(
-                      controller: clientLastNameController,
+                      controller: controller.clientLastNameController,
                       onChanged: (_) {
                         controller.clientLastNameEdit.value = _;
                       },
@@ -83,7 +76,7 @@ class ClientAddView extends GetView<ClientController> {
                       ),
                     ),
                     TextFormField(
-                      controller: clientContactNameController,
+                      controller: controller.clientContactNameController,
                       onChanged: (_) {
                         controller.clientContactNameEdit.value = _;
                       },
