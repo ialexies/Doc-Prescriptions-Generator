@@ -52,7 +52,19 @@ class ClientAddView extends GetView<ClientController> {
       body: KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Text(
+                  'Client Info',
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 60.sp),
+                ),
+              ),
               const SizedBox(
                 height: 15,
               ),
@@ -96,9 +108,13 @@ class ClientAddView extends GetView<ClientController> {
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                'Prescription',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 60.sp),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Text(
+                  'Prescription',
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 60.sp),
+                ),
               ),
               if (isKeyboardVisible)
                 const SizedBox.shrink()
@@ -109,10 +125,10 @@ class ClientAddView extends GetView<ClientController> {
                       Obx(
                         () => Container(
                           decoration: BoxDecoration(
-                            color: Colors.amber[50],
+                            color: Colors.cyan[50],
                             border: Border.all(
-                              color: Colors.amber.shade800,
-                              width: .5,
+                              color: Colors.cyan.shade200,
+                              width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
