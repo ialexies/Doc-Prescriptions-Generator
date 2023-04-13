@@ -44,31 +44,16 @@ class ClientController extends GetxController {
         addMedDossage.value == '';
   }
 
+  bool isValidForAddClient() {
+    return clientFirstNameEdit.value.isEmpty ||
+        clientContactNameEdit.value.isEmpty;
+  }
+
   void removeDrugFromPrescription(PrescriptionModel med) {
     editPrescriptionList.remove(med);
   }
 
-  // final rxFormGroup = fb.group(
-  //   {
-  //     'clientFirstName': FormControl<String>(
-  //       value: '',
-  //       validators: [Validators.required],
-  //       asyncValidatorsDebounceTime: 3000,
-  //     ),
-  //     'clientLastName': FormControl<String>(
-  //       value: '',
-  //       validators: [
-  //         Validators.required,
-  //       ],
-  //       asyncValidatorsDebounceTime: 3000,
-  //     ),
-  //     'contact': FormControl<String>(
-  //       value: '',
-  //       validators: [
-  //         Validators.required,
-  //       ],
-  //       asyncValidatorsDebounceTime: 3000,
-  //     ),
-  //   },
-  // ).obs;
+  void addClient() {
+    clientRepository.addClient();
+  }
 }
