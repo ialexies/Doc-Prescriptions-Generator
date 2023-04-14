@@ -25,18 +25,13 @@ class ClientRepository {
           .collection('users')
           .doc(firebaseAuth.currentUser?.uid ?? '')
           .collection('prescriptions')
+          // .where("clientFirstName", arrayContainsAny:  [])
           .snapshots();
 
   ///
   Stream<DocumentSnapshot<Map<String, dynamic>>> clientColDetails(
     String selectedClientId,
   ) =>
-      // FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(firebaseAuth.currentUser?.uid ?? '')
-      //     .collection('prescriptions')
-      //     .doc(selectedClientId)
-      //     .snapshots();
       FirebaseFirestore.instance
           .collection('users')
           .doc(firebaseAuth.currentUser?.uid ?? '')
