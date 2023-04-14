@@ -61,6 +61,9 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                       backgroundImage: NetworkImage(
                           'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg'),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       '${client.clientFirstName} ${client.clientLastName}',
                       style: TextStyle(
@@ -68,9 +71,6 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
