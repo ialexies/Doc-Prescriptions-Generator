@@ -6,6 +6,9 @@ publish_to: none
 environment:
   sdk: ">=2.18.0 <3.0.0"
 
+dependencies:
+  faker: ^2.1.0
+
 dev_dependencies:
   cloud_firestore: ^4.5.0
   firebase_auth: ^4.4.0

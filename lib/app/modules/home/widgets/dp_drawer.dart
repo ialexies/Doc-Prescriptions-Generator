@@ -1,3 +1,4 @@
+import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -48,13 +49,35 @@ class DPDrawer extends GetView<HomeController> {
                 leading: IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.person,
+                    Icons.dataset_linked_outlined,
                   ),
                 ),
                 title: const Text(
-                  'Profile',
+                  'Add Dummy Data',
                 ),
-                onTap: () {},
+                onTap: () {
+                  final clientController = Get.find<ClientController>();
+                  // ignore: cascade_invocations
+                  clientController.addStartingData();
+                  Get.back();
+                },
+              ),
+              ListTile(
+                leading: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.dataset_linked_outlined,
+                  ),
+                ),
+                title: const Text(
+                  'Remove Dummy data',
+                ),
+                onTap: () {
+                  final clientController = Get.find<ClientController>();
+                  // ignore: cascade_invocations
+                  clientController.deleteDummyData();
+                  Get.back();
+                },
               ),
             ],
           ),

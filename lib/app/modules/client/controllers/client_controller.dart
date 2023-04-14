@@ -138,4 +138,8 @@ class ClientController extends GetxController {
       rethrow;
     }
   }
+
+  void addStartingData() => clientRepository.addStartingClients();
+
+  void deleteDummyData() => clientRepository.deleteDummyData();
 }
