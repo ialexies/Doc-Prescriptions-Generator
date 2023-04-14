@@ -61,9 +61,18 @@ class ClientController extends GetxController {
   }
 
   bool isValidForAddClient() {
-    return (clientFirstNameEdit.value.isEmpty ||
-            clientContactNameEdit.value.isEmpty) &&
-        (addClientStatus.value != AddClientStatus.loading);
+    final isClientNameEmpty = clientFirstNameEdit.value.isNotEmpty;
+    final isClientContactEmpty = clientContactNameEdit.value.isNotEmpty;
+    final isAddClientNotLoading =
+        addClientStatus.value != AddClientStatus.loading;
+    final isPrescriptionEmpty = editPrescriptionList.isNotEmpty;
+
+    final isValid = isClientNameEmpty &&
+        isClientContactEmpty &&
+        isAddClientNotLoading &&
+        isPrescriptionEmpty;
+
+    return isValid;
   }
 
   void addClient() {

@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_generic_invocation
+
 import 'dart:developer';
 
 import 'package:client_repository/prescription_repository.dart';

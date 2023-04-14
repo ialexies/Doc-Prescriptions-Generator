@@ -1,5 +1,6 @@
 import 'package:client_repository/prescription_repository.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
+import 'package:doc_prescriptions/app/modules/client/helper/client_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,15 +12,6 @@ class ClientAddView extends GetView<ClientController> {
   @override
   final controller = Get.find<ClientController>();
 
-  final docPrecTextFieldDecor = InputDecoration(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    filled: true,
-    hintStyle: TextStyle(color: Colors.grey[800]),
-    hintText: '',
-    fillColor: Colors.white70,
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +24,18 @@ class ClientAddView extends GetView<ClientController> {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: ElevatedButton(
               onPressed: controller.isValidForAddClient()
-                  ? null
-                  : () {
+                  ? () {
                       controller.addClient();
 
                       Get.back();
-                    },
+                    }
+                  : null,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(
                   40,
                 ),
               ),
-              child: const Text('Add Client '),
+              child: Text('Add Client ${controller.isValidForAddClient()}'),
             ),
           );
         },
@@ -79,18 +71,18 @@ class ClientAddView extends GetView<ClientController> {
                       onChanged: (_) {
                         controller.clientFirstNameEdit.value = _;
                       },
-                      decoration: docPrecTextFieldDecor.copyWith(
-                        hintText: 'First Name',
-                      ),
+                      decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
+                            hintText: 'First Name',
+                          ),
                     ),
                     TextFormField(
                       controller: controller.clientLastNameController,
                       onChanged: (_) {
                         controller.clientLastNameEdit.value = _;
                       },
-                      decoration: docPrecTextFieldDecor.copyWith(
-                        hintText: 'Last Name',
-                      ),
+                      decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
+                            hintText: 'Last Name',
+                          ),
                     ),
                     TextFormField(
                       controller: controller.clientContactNameController,
@@ -98,9 +90,9 @@ class ClientAddView extends GetView<ClientController> {
                         controller.clientContactNameEdit.value = _;
                       },
                       keyboardType: TextInputType.phone,
-                      decoration: docPrecTextFieldDecor.copyWith(
-                        hintText: 'Contact',
-                      ),
+                      decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
+                            hintText: 'Contact',
+                          ),
                     ),
                   ],
                 ),
@@ -157,9 +149,10 @@ class ClientAddView extends GetView<ClientController> {
                                         final currIndex = controller
                                             .editPrescriptionList
                                             .indexOf(med);
-                                        newMedDialog(
+                                        ClientHelpe().newMedDialog(
+                                          buttonText: 'Update',
                                           forEditIndex: currIndex,
-                                          toEdtPres: controller
+                                          toEditPres: controller
                                               .editPrescriptionList[currIndex],
                                           action: () {
                                             controller.editMedInPrescription(
@@ -190,7 +183,8 @@ class ClientAddView extends GetView<ClientController> {
                         child: SizedBox(
                           height: 40,
                           child: FloatingActionButton(
-                            onPressed: () => newMedDialog(
+                            onPressed: () => ClientHelpe().newMedDialog(
+                              buttonText: 'Add',
                               action: () {
                                 controller.addMedInPrescription(
                                   toAdd: PrescriptionModel(
@@ -214,90 +208,6 @@ class ClientAddView extends GetView<ClientController> {
             ],
           );
         },
-      ),
-    );
-  }
-
-  void newMedDialog({
-    int? forEditIndex,
-    required action,
-    PrescriptionModel? toEdtPres,
-  }) {
-    controller.clearNewDrugValues();
-
-    if (toEdtPres != null) {
-      controller.addMedDrugName.value = toEdtPres.drugName ?? '';
-      controller.addMedDossage.value = toEdtPres.dossage ?? '';
-      controller.addMedDetails.value = toEdtPres.details ?? '';
-    }
-
-    Get.defaultDialog(
-      title: 'Add Medicine',
-      titlePadding: const EdgeInsets.only(top: 30),
-      content: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Wrap(
-          runSpacing: 8,
-          children: [
-            TextFormField(
-              onChanged: (_) {
-                controller.addMedDrugName.value = _;
-              },
-              initialValue: controller.addMedDrugName.value,
-              decoration: docPrecTextFieldDecor.copyWith(
-                hintText: 'Medicine Name',
-              ),
-            ),
-            TextFormField(
-              onChanged: (_) {
-                controller.addMedDossage.value = _;
-              },
-              initialValue: controller.addMedDossage.value,
-              decoration: docPrecTextFieldDecor.copyWith(
-                hintText: 'Dossage',
-              ),
-            ),
-            TextFormField(
-              onChanged: (_) {
-                controller.addMedDetails.value = _;
-              },
-              initialValue: controller.addMedDetails.value,
-              decoration: docPrecTextFieldDecor.copyWith(
-                hintText: 'Details',
-              ),
-            ),
-            Obx(() {
-              return Column(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(
-                        50,
-                      ), // NEW
-                    ),
-                    onPressed: controller.isValidForAddMed()
-                        ? null
-                        : () {
-                            action();
-                            // forEditIndex == null
-                            //     ? controller.addMedInPrescription(
-                            //         toAdd: PrescriptionModel(
-                            //           drugName: controller.addMedDrugName.value,
-                            //           details: controller.addMedDetails.value,
-                            //           dossage: controller.addMedDossage.value,
-                            //         ),
-                            //       )
-                            //     : controller
-                            //         .editMedInPrescription(forEditIndex);
-                            Get.back();
-                          },
-                    child: Text(forEditIndex == null ? 'Add' : 'Update'),
-                  ),
-                ],
-              );
-            }),
-          ],
-        ),
       ),
     );
   }
