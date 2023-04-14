@@ -195,6 +195,8 @@ class ClientView extends GetView<ClientController> {
         backgroundColor: Colors.red,
         colorText: Colors.white,
         margin: const EdgeInsets.all(30),
+        duration: const Duration(milliseconds: 1000),
+        animationDuration: Duration.zero,
         snackPosition: SnackPosition.BOTTOM,
       );
     } catch (e) {

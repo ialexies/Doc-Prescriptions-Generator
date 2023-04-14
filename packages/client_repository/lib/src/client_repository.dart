@@ -81,4 +81,27 @@ class ClientRepository {
       log(e.toString());
     }
   }
+
+  ///
+  Future<void> existingClientEditPrescriptionDetails({
+    required String clientId,
+    required int currIndex,
+    List<PrescriptionModel>? prescriptionList,
+    required List<PrescriptionModel> updatedPrescriptionList,
+  }) async {
+    final prescriptionJson = updatedPrescriptionList
+        .map((e) => PrescriptionModel().modelToMap(e))
+        .toList();
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid ?? '')
+          .collection('prescriptions')
+          .doc(clientId)
+          .update({'prescription': prescriptionJson});
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

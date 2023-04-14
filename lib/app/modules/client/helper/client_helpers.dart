@@ -19,7 +19,6 @@ class ClientHelpe {
   );
 
   void newMedDialog({
-    int? forEditIndex,
     required action,
     PrescriptionModel? toEditPres,
     String? buttonText,

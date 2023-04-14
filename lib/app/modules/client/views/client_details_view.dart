@@ -3,6 +3,7 @@
 import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
+import 'package:doc_prescriptions/app/modules/client/helper/client_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -97,7 +98,26 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                                 ),
                                 subtitle: Text(med.details ?? ''),
                                 trailing: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    ClientHelpe().newMedDialog(
+                                      buttonText: 'Update',
+                                      toEditPres: med,
+                                      action: () async {
+                                        try {
+                                          await controller
+                                              .existingClientEditPrescriptionDetails(
+                                                  clientId: selectedClientId,
+                                                  prescriptionList:
+                                                      client.prescription,
+                                                  currIndex: index);
+                                        } catch (e) {
+                                          rethrow;
+                                        }
+
+                                        // print('fdfd');
+                                      },
+                                    );
+                                  },
                                   icon: const Icon(Icons.edit),
                                 ),
                               );

@@ -35,7 +35,7 @@ class ClientAddView extends GetView<ClientController> {
                   40,
                 ),
               ),
-              child: Text('Add Client ${controller.isValidForAddClient()}'),
+              child: const Text('Add Client'),
             ),
           );
         },
@@ -151,7 +151,6 @@ class ClientAddView extends GetView<ClientController> {
                                             .indexOf(med);
                                         ClientHelpe().newMedDialog(
                                           buttonText: 'Update',
-                                          forEditIndex: currIndex,
                                           toEditPres: controller
                                               .editPrescriptionList[currIndex],
                                           action: () {

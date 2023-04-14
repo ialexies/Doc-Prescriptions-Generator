@@ -25,6 +25,15 @@ class ClientController extends GetxController {
 
   final addClientStatus = AddClientStatus.initial.obs;
 
+  void clearAddProfileVals() {
+    clientContactNameEdit.value = '';
+    clientLastNameEdit.value = '';
+    clientContactNameEdit.value = '';
+    clientContactNameController.text = '';
+    clientFirstNameController.text = '';
+    clientLastNameController.text = '';
+  }
+
   void addMedInPrescription({required PrescriptionModel toAdd}) {
     editPrescriptionList.add(
       toAdd,
@@ -87,6 +96,7 @@ class ClientController extends GetxController {
 
       editPrescriptionList.value = [];
       clearNewDrugValues();
+      clearAddProfileVals();
 
       addClientStatus.value = AddClientStatus.initial;
     } catch (e) {
@@ -96,9 +106,34 @@ class ClientController extends GetxController {
   }
 
   Future<void> deleteClient(String id) async {
-    log('fdf');
     try {
       await clientRepository.deleteClient(uid: id);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> existingClientEditPrescriptionDetails({
+    required String clientId,
+    List<PrescriptionModel>? prescriptionList,
+    required int currIndex,
+  }) async {
+    try {
+      final updatedPrescriptionList = prescriptionList;
+
+      final newVal = PrescriptionModel(
+        drugName: addMedDrugName.value,
+        details: addMedDetails.value,
+        dossage: addMedDossage.value,
+      );
+
+      updatedPrescriptionList![currIndex] = newVal;
+
+      await clientRepository.existingClientEditPrescriptionDetails(
+        clientId: clientId,
+        currIndex: currIndex,
+        updatedPrescriptionList: updatedPrescriptionList,
+      );
     } catch (e) {
       rethrow;
     }
