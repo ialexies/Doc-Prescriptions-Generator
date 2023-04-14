@@ -13,7 +13,9 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-          minWidth: double.infinity, minHeight: double.infinity),
+        minWidth: double.infinity,
+        minHeight: double.infinity,
+      ),
       child: ColoredBox(
         color: Colors.grey.shade500,
         child: Center(

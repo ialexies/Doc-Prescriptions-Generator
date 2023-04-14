@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
-import 'package:doc_prescriptions/app/modules/client/helper/client_helpers.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,13 +156,16 @@ class _ClientViewState extends State<ClientView> {
                                                                 Colors.amber,
                                                             minimumSize:
                                                                 const Size(
-                                                                    0, 45),
+                                                              0,
+                                                              45,
+                                                            ),
                                                             shape:
                                                                 RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8),
+                                                                8,
+                                                              ),
                                                             ),
                                                           ),
                                                           onPressed: Get.back,
@@ -185,13 +187,16 @@ class _ClientViewState extends State<ClientView> {
                                                                 Colors.amber,
                                                             minimumSize:
                                                                 const Size(
-                                                                    0, 45),
+                                                              0,
+                                                              45,
+                                                            ),
                                                             shape:
                                                                 RoundedRectangleBorder(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8),
+                                                                8,
+                                                              ),
                                                             ),
                                                           ),
                                                           onPressed: () async {
