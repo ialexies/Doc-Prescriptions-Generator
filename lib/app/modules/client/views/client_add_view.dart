@@ -157,7 +157,16 @@ class ClientAddView extends GetView<ClientController> {
                                         final currIndex = controller
                                             .editPrescriptionList
                                             .indexOf(med);
-                                        newMedDialog(forEditIndex: currIndex);
+                                        newMedDialog(
+                                          forEditIndex: currIndex,
+                                          toEdtPres: controller
+                                              .editPrescriptionList[currIndex],
+                                          action: () {
+                                            controller.editMedInPrescription(
+                                              currIndex,
+                                            );
+                                          },
+                                        );
                                       },
                                       icon: const Icon(Icons.edit),
                                     ),
@@ -181,7 +190,17 @@ class ClientAddView extends GetView<ClientController> {
                         child: SizedBox(
                           height: 40,
                           child: FloatingActionButton(
-                            onPressed: newMedDialog,
+                            onPressed: () => newMedDialog(
+                              action: () {
+                                controller.addMedInPrescription(
+                                  toAdd: PrescriptionModel(
+                                    drugName: controller.addMedDrugName.value,
+                                    details: controller.addMedDetails.value,
+                                    dossage: controller.addMedDossage.value,
+                                  ),
+                                );
+                              },
+                            ),
                             child: const Icon(Icons.add_task_outlined),
                           ),
                         ),
@@ -199,16 +218,17 @@ class ClientAddView extends GetView<ClientController> {
     );
   }
 
-  void newMedDialog({int? forEditIndex}) {
+  void newMedDialog({
+    int? forEditIndex,
+    required action,
+    PrescriptionModel? toEdtPres,
+  }) {
     controller.clearNewDrugValues();
 
-    if (forEditIndex != null) {
-      controller.addMedDrugName.value =
-          controller.editPrescriptionList[forEditIndex].drugName ?? '';
-      controller.addMedDossage.value =
-          controller.editPrescriptionList[forEditIndex].dossage ?? '';
-      controller.addMedDetails.value =
-          controller.editPrescriptionList[forEditIndex].details ?? '';
+    if (toEdtPres != null) {
+      controller.addMedDrugName.value = toEdtPres.drugName ?? '';
+      controller.addMedDossage.value = toEdtPres.dossage ?? '';
+      controller.addMedDetails.value = toEdtPres.details ?? '';
     }
 
     Get.defaultDialog(
@@ -258,16 +278,17 @@ class ClientAddView extends GetView<ClientController> {
                     onPressed: controller.isValidForAddMed()
                         ? null
                         : () {
-                            forEditIndex == null
-                                ? controller.addMedInPrescription(
-                                    toAdd: PrescriptionModel(
-                                      drugName: controller.addMedDrugName.value,
-                                      details: controller.addMedDetails.value,
-                                      dossage: controller.addMedDossage.value,
-                                    ),
-                                  )
-                                : controller
-                                    .editMedInPrescription(forEditIndex);
+                            action();
+                            // forEditIndex == null
+                            //     ? controller.addMedInPrescription(
+                            //         toAdd: PrescriptionModel(
+                            //           drugName: controller.addMedDrugName.value,
+                            //           details: controller.addMedDetails.value,
+                            //           dossage: controller.addMedDossage.value,
+                            //         ),
+                            //       )
+                            //     : controller
+                            //         .editMedInPrescription(forEditIndex);
                             Get.back();
                           },
                     child: Text(forEditIndex == null ? 'Add' : 'Update'),
