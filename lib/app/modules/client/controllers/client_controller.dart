@@ -51,9 +51,9 @@ class ClientController extends GetxController {
     addMedDossage.value = '';
     addMedDetails.value = '';
 
-    clientContactNameController.text = '';
-    clientFirstNameController.text = '';
-    clientLastNameController.text = '';
+    // clientContactNameController.text = '';
+    // clientFirstNameController.text = '';
+    // clientLastNameController.text = '';
     log('added med');
   }
 

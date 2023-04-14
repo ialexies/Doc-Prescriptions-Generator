@@ -56,7 +56,7 @@ class ClientView extends GetView<ClientController> {
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 40,
                                     ),
-                                    child: Container(
+                                    child: DecoratedBox(
                                       decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.all(
@@ -88,7 +88,8 @@ class ClientView extends GetView<ClientController> {
                                                           .styleFrom(
                                                         foregroundColor:
                                                             const Color(
-                                                                0xFFFFFFFF),
+                                                          0xFFFFFFFF,
+                                                        ),
                                                         backgroundColor:
                                                             Colors.amber,
                                                         minimumSize:
@@ -113,7 +114,8 @@ class ClientView extends GetView<ClientController> {
                                                           .styleFrom(
                                                         foregroundColor:
                                                             const Color(
-                                                                0xFFFFFFFF),
+                                                          0xFFFFFFFF,
+                                                        ),
                                                         backgroundColor:
                                                             Colors.amber,
                                                         minimumSize:
