@@ -1,3 +1,4 @@
+import 'package:client_repository/prescription_repository.dart';
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -258,12 +259,18 @@ class ClientAddView extends GetView<ClientController> {
                         ? null
                         : () {
                             forEditIndex == null
-                                ? controller.addMedInPrescription()
+                                ? controller.addMedInPrescription(
+                                    toAdd: PrescriptionModel(
+                                      drugName: controller.addMedDrugName.value,
+                                      details: controller.addMedDetails.value,
+                                      dossage: controller.addMedDossage.value,
+                                    ),
+                                  )
                                 : controller
                                     .editMedInPrescription(forEditIndex);
                             Get.back();
                           },
-                    child: Text(forEditIndex == null ? 'Add' : 'Edit'),
+                    child: Text(forEditIndex == null ? 'Add' : 'Update'),
                   ),
                 ],
               );

@@ -25,13 +25,9 @@ class ClientController extends GetxController {
 
   final addClientStatus = AddClientStatus.initial.obs;
 
-  void addMedInPrescription() {
+  void addMedInPrescription({required PrescriptionModel toAdd}) {
     editPrescriptionList.add(
-      PrescriptionModel(
-        drugName: addMedDrugName.value,
-        details: addMedDetails.value,
-        dossage: addMedDossage.value,
-      ),
+      toAdd,
     );
     update();
 
@@ -51,9 +47,6 @@ class ClientController extends GetxController {
     addMedDossage.value = '';
     addMedDetails.value = '';
 
-    // clientContactNameController.text = '';
-    // clientFirstNameController.text = '';
-    // clientLastNameController.text = '';
     log('added med');
   }
 
