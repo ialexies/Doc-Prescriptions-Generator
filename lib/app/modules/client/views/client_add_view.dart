@@ -74,6 +74,13 @@ class ClientAddView extends GetView<ClientController> {
                       decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
                             hintText: 'First Name',
                           ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter first name';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.always,
                     ),
                     TextFormField(
                       controller: controller.clientLastNameController,
@@ -83,6 +90,13 @@ class ClientAddView extends GetView<ClientController> {
                       decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
                             hintText: 'Last Name',
                           ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter last name';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.always,
                     ),
                     TextFormField(
                       controller: controller.clientContactNameController,
@@ -93,6 +107,13 @@ class ClientAddView extends GetView<ClientController> {
                       decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
                             hintText: 'Contact',
                           ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter contact number';
+                        }
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.always,
                     ),
                   ],
                 ),

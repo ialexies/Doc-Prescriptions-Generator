@@ -47,6 +47,13 @@ class ClientHelpe {
               decoration: docPrecTextFieldDecor.copyWith(
                 hintText: 'Medicine Name',
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Medicine Name';
+                }
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.always,
             ),
             TextFormField(
               onChanged: (_) {
@@ -56,6 +63,13 @@ class ClientHelpe {
               decoration: docPrecTextFieldDecor.copyWith(
                 hintText: 'Dossage',
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Dossage';
+                }
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.always,
             ),
             TextFormField(
               onChanged: (_) {
@@ -65,6 +79,13 @@ class ClientHelpe {
               decoration: docPrecTextFieldDecor.copyWith(
                 hintText: 'Details',
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Details';
+                }
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.always,
             ),
             Obx(() {
               return Column(
