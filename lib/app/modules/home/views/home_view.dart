@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 68, 180, 255),
+          backgroundColor: const Color.fromARGB(255, 68, 180, 255),
           title: const Text('Doc Prescriptions'),
           centerTitle: true,
         ),

@@ -73,7 +73,9 @@ class _ClientViewState extends State<ClientView> {
                   focusedBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(
-                        width: 2, color: Color.fromARGB(255, 202, 233, 253)),
+                      width: 2,
+                      color: Color.fromARGB(255, 202, 233, 253),
+                    ),
                   ),
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(width: 3, color: Colors.red),
@@ -416,10 +418,15 @@ class _ClientViewState extends State<ClientView> {
                                       shape: const RoundedRectangleBorder(
                                         side: BorderSide(
                                           color: Color.fromARGB(
-                                              255, 202, 233, 253),
+                                            255,
+                                            202,
+                                            233,
+                                            253,
+                                          ),
                                         ),
                                         borderRadius: BorderRadius.all(
-                                            Radius.circular(4)),
+                                          Radius.circular(4),
+                                        ),
                                       ),
                                     ),
                                   );

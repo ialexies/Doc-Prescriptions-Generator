@@ -20,7 +20,8 @@ class ClientAddView extends GetView<ClientController> {
         title: const Text('Add Client'),
         actions: [
           LottieBuilder.network(
-              'https://assets5.lottiefiles.com/packages/lf20_zjmdifhc.json')
+            'https://assets5.lottiefiles.com/packages/lf20_zjmdifhc.json',
+          )
         ],
       ),
       bottomSheet: Obx(
@@ -131,33 +132,37 @@ class ClientAddView extends GetView<ClientController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Obx(() => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Prescription',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 60.sp),
+                    Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Prescription',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 60.sp,
                             ),
-                            if (!controller.editPrescriptionList.isEmpty)
-                              SizedBox.shrink()
-                            else
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 10,
-                                  top: 5,
-                                ),
-                                child: Text(
-                                  'Prescription is empty, press add button',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 30.sp,
-                                    color: Colors.red,
-                                  ),
+                          ),
+                          if (controller.editPrescriptionList.isNotEmpty)
+                            const SizedBox.shrink()
+                          else
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                top: 5,
+                              ),
+                              child: Text(
+                                'Prescription is empty, press add button',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 30.sp,
+                                  color: Colors.red,
                                 ),
                               ),
-                          ],
-                        )),
+                            ),
+                        ],
+                      ),
+                    ),
                     ElevatedButton(
                       onPressed: () => ClientHelpe().newMedDialog(
                         buttonText: 'Add',
@@ -173,7 +178,6 @@ class ClientAddView extends GetView<ClientController> {
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(0),
                         backgroundColor: Colors.blue, // <-- Button color
                         foregroundColor: Colors.red, // <-- Splash color
                       ),

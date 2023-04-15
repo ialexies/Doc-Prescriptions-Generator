@@ -3,10 +3,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:lottie/lottie.dart';
 
@@ -21,36 +19,37 @@ class SignInWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(top: 30),
-      child: SignInScreen(
-        providerConfigs: providerConfigs,
-        headerBuilder: (context, constraints, _) {
-          return Lottie.asset(
-            'assets/images/doctor_signin_animation.json',
-          );
-        },
-        actions: [
-          AuthStateChangeAction<SignedIn>((context, state) async {
-            final auth = FirebaseAuth.instance;
-            final user = auth.currentUser;
-            final uid = user?.uid;
+      body: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: SignInScreen(
+          providerConfigs: providerConfigs,
+          headerBuilder: (context, constraints, _) {
+            return Lottie.asset(
+              'assets/images/doctor_signin_animation.json',
+            );
+          },
+          actions: [
+            AuthStateChangeAction<SignedIn>((context, state) async {
+              final auth = FirebaseAuth.instance;
+              final user = auth.currentUser;
+              final uid = user?.uid;
 
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(uid)
-                .update({})
-                .then((value) => log('User Details'))
-                .catchError((err) async {
-                  log('Failed to add user: $err');
-                });
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(uid)
+                  .update({})
+                  .then((value) => log('User Details'))
+                  .catchError((err) async {
+                    log('Failed to add user: $err');
+                  });
 
-            if (context.mounted) {
-              await Navigator.pushReplacementNamed(context, '/home');
-            }
-          }),
-        ],
+              if (context.mounted) {
+                await Navigator.pushReplacementNamed(context, '/home');
+              }
+            }),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
