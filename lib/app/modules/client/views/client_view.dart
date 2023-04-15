@@ -101,10 +101,14 @@ class _ClientViewState extends State<ClientView> {
                     final data = s.data() as Map<String, dynamic>?;
                     if (data == null) return false;
 
-                    final isValidFname =
-                        data['clientFirstName'].toString().contains(searchText);
-                    final isValidLname =
-                        data['clientLastName'].toString().contains(searchText);
+                    final isValidFname = data['clientFirstName']
+                        .toString()
+                        .toLowerCase()
+                        .contains(searchText.toLowerCase());
+                    final isValidLname = data['clientLastName']
+                        .toString()
+                        .toLowerCase()
+                        .contains(searchText.toLowerCase());
 
                     final isValid = isValidFname || isValidLname;
 
