@@ -6,6 +6,7 @@ import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class DPDrawer extends GetView<HomeController> {
   const DPDrawer({super.key});
@@ -20,28 +21,40 @@ class DPDrawer extends GetView<HomeController> {
           Column(
             children: [
               SizedBox(
-                height: 400.sp,
+                height: 900.h,
                 child: DrawerHeader(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 30.w,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 30.w,
+                              ),
+                              Text(
+                                'Dashboard',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 50.sp,
+                                ),
+                              ),
+                            ],
                           ),
-                          const Text(
-                            'Dashboard',
-                          ),
+                          Builder(
+                            builder: (context) => IconButton(
+                              onPressed: () =>
+                                  Scaffold.of(context).closeDrawer(),
+                              icon: const Icon(
+                                Icons.arrow_back,
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                      Builder(
-                        builder: (context) => IconButton(
-                          onPressed: () => Scaffold.of(context).closeDrawer(),
-                          icon: const Icon(
-                            Icons.arrow_back,
-                          ),
-                        ),
+                      LottieBuilder.asset(
+                        'assets/images/drawer_header.json',
                       )
                     ],
                   ),

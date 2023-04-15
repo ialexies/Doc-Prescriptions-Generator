@@ -57,10 +57,10 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const CircleAvatar(
-                      radius: 80,
-                      backgroundImage: NetworkImage(
-                          'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg'),
+                    SizedBox(
+                      width: 500.w,
+                      child: LottieBuilder.network(
+                          'https://assets7.lottiefiles.com/packages/lf20_lflz1yw9.json'),
                     ),
                     const SizedBox(
                       height: 20,
@@ -76,10 +76,10 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.amber[50],
+                            color: const Color(0xFFDCEDF8),
                             border: Border.all(
-                              color: Colors.amber.shade800,
-                              width: .5,
+                              color: Colors.grey.shade200,
+                              width: 2,
                             ),
                             borderRadius: BorderRadius.circular(10)),
                         margin: const EdgeInsets.all(20),
@@ -93,17 +93,17 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                             itemBuilder: (BuildContext context, int index) {
                               final med = client.prescription![index];
                               return ListTile(
-                                leading: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 160.sp,
-                                      child: Lottie.network(
-                                        'https://assets1.lottiefiles.com/packages/lf20_rngukoer.json',
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                // leading: Column(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     SizedBox(
+                                //       height: 160.sp,
+                                //       child: Lottie.network(
+                                //         'https://assets1.lottiefiles.com/packages/lf20_rngukoer.json',
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                                 title: Text(
                                   '${med.dossage ?? ''} - ${med.drugName ?? ''}',
                                   style: const TextStyle(

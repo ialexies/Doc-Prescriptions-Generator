@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class ClientAddView extends GetView<ClientController> {
   ClientAddView({super.key});
@@ -17,6 +18,10 @@ class ClientAddView extends GetView<ClientController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Client'),
+        actions: [
+          LottieBuilder.network(
+              'https://assets5.lottiefiles.com/packages/lf20_zjmdifhc.json')
+        ],
       ),
       bottomSheet: Obx(
         () {
@@ -123,105 +128,130 @@ class ClientAddView extends GetView<ClientController> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(
-                  'Prescription',
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 60.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Obx(() => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Prescription',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 60.sp),
+                            ),
+                            if (!controller.editPrescriptionList.isEmpty)
+                              SizedBox.shrink()
+                            else
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 10,
+                                  top: 5,
+                                ),
+                                child: Text(
+                                  'Prescription is empty, press add button',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 30.sp,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )),
+                    ElevatedButton(
+                      onPressed: () => ClientHelpe().newMedDialog(
+                        buttonText: 'Add',
+                        action: () {
+                          controller.addMedInPrescription(
+                            toAdd: PrescriptionModel(
+                              drugName: controller.addMedDrugName.value,
+                              details: controller.addMedDetails.value,
+                              dossage: controller.addMedDossage.value,
+                            ),
+                          );
+                        },
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(0),
+                        backgroundColor: Colors.blue, // <-- Button color
+                        foregroundColor: Colors.red, // <-- Splash color
+                      ),
+                      child: const Icon(Icons.add, color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
               if (isKeyboardVisible)
                 const SizedBox.shrink()
               else
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Obx(
-                        () => Container(
-                          decoration: BoxDecoration(
-                            color: Colors.cyan[50],
-                            border: Border.all(
-                              color: Colors.cyan.shade200,
-                              width: 2,
+                controller.editPrescriptionList.isEmpty
+                    ? const SizedBox.shrink()
+                    : Expanded(
+                        child: Obx(
+                          () => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.cyan[50],
+                              border: Border.all(
+                                color: Colors.cyan.shade200,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          margin: const EdgeInsets.all(15),
-                          child: ListView.separated(
-                            itemCount: controller.editPrescriptionList.length,
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    const Divider(),
-                            itemBuilder: (BuildContext context, int index) {
-                              final med =
-                                  controller.editPrescriptionList[index];
-                              return ListTile(
-                                leading: Text(med.dossage ?? ''),
-                                title: Text(
-                                  med.drugName ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                            margin: const EdgeInsets.all(15),
+                            child: ListView.separated(
+                              itemCount: controller.editPrescriptionList.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
+                              itemBuilder: (BuildContext context, int index) {
+                                final med =
+                                    controller.editPrescriptionList[index];
+                                return ListTile(
+                                  leading: Text(med.dossage ?? ''),
+                                  title: Text(
+                                    med.drugName ?? '',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                subtitle: Text(med.details ?? ''),
-                                trailing: Wrap(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        final currIndex = controller
-                                            .editPrescriptionList
-                                            .indexOf(med);
-                                        ClientHelpe().newMedDialog(
-                                          buttonText: 'Update',
-                                          toEditPres: controller
-                                              .editPrescriptionList[currIndex],
-                                          action: () {
-                                            controller.editMedInPrescription(
-                                              currIndex,
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(Icons.edit),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        controller
-                                            .removeDrugFromPrescription(med);
-                                      },
-                                      icon: const Icon(Icons.delete),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 5,
-                        top: 0,
-                        child: SizedBox(
-                          height: 40,
-                          child: FloatingActionButton(
-                            onPressed: () => ClientHelpe().newMedDialog(
-                              buttonText: 'Add',
-                              action: () {
-                                controller.addMedInPrescription(
-                                  toAdd: PrescriptionModel(
-                                    drugName: controller.addMedDrugName.value,
-                                    details: controller.addMedDetails.value,
-                                    dossage: controller.addMedDossage.value,
+                                  subtitle: Text(med.details ?? ''),
+                                  trailing: Wrap(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          final currIndex = controller
+                                              .editPrescriptionList
+                                              .indexOf(med);
+                                          ClientHelpe().newMedDialog(
+                                            buttonText: 'Update',
+                                            toEditPres:
+                                                controller.editPrescriptionList[
+                                                    currIndex],
+                                            action: () {
+                                              controller.editMedInPrescription(
+                                                currIndex,
+                                              );
+                                            },
+                                          );
+                                        },
+                                        icon: const Icon(Icons.edit),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          controller
+                                              .removeDrugFromPrescription(med);
+                                        },
+                                        icon: const Icon(Icons.delete),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
                             ),
-                            child: const Icon(Icons.add_task_outlined),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                      ),
               SizedBox(
                 height: 220.h,
               ),
