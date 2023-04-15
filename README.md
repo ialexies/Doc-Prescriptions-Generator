@@ -1,6 +1,16 @@
 # Doc Prescriptions
 
 A demo app made from Flutter, and Firebase for Backend.
+    - Firebase Authentication
+    - FireStore CRUD(create, read, update, delete)
+    - Search
+    - Platform agnostic Packages
+    - GetX clean architecture
+    - Flavors, Envirnoment
+    
+    - Use of Faker Data
+    -
+
 
 ## Getting Started 🚀
 

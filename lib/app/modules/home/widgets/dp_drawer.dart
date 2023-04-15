@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
@@ -57,28 +59,12 @@ class DPDrawer extends GetView<HomeController> {
                 ),
                 onTap: () {
                   final clientController = Get.find<ClientController>();
-                  // ignore: cascade_invocations
                   clientController.addStartingData();
                   Get.back();
                 },
               ),
-              ListTile(
-                leading: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.dataset_linked_outlined,
-                  ),
-                ),
-                title: const Text(
-                  'Remove Dummy data',
-                ),
-                onTap: () {
-                  final clientController = Get.find<ClientController>();
-                  // ignore: cascade_invocations
-                  clientController.deleteDummyData();
-                  Get.back();
-                },
-              ),
+
+              // ),
             ],
           ),
           Padding(

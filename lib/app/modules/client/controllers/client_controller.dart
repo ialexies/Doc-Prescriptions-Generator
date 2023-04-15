@@ -6,25 +6,31 @@ import 'package:get/get.dart';
 enum AddClientStatus { initial, loading, success, failure }
 
 class ClientController extends GetxController {
+  ///Call an instance of ClientRepository
   final clientRepository = Get.find<ClientRepository>();
 
+  /// Client textfield controller
   final clientFirstNameController = TextEditingController();
   final clientLastNameController = TextEditingController();
   final clientContactNameController = TextEditingController();
 
+  /// Use for temporary list of med prescription when adding
   final editPrescriptionList = <PrescriptionModel>[].obs;
-  final newClient = ClientModel(clientFirstName: 'fdf').obs;
 
+  /// Fields for client info form when adding and updating
   final clientFirstNameEdit = ''.obs;
   final clientLastNameEdit = ''.obs;
   final clientContactNameEdit = ''.obs;
 
+  /// Fields for the form in dialog when
+  /// adding new med in prescription
   final addMedDrugName = ''.obs;
   final addMedDossage = ''.obs;
   final addMedDetails = ''.obs;
 
   final addClientStatus = AddClientStatus.initial.obs;
 
+  /// Clear and reset forms for updating and deleting client
   void clearAddProfileVals() {
     clientContactNameEdit.value = '';
     clientLastNameEdit.value = '';
@@ -34,15 +40,16 @@ class ClientController extends GetxController {
     clientLastNameController.text = '';
   }
 
+  /// Add new med in list of prescription
   void addMedInPrescription({required PrescriptionModel toAdd}) {
     editPrescriptionList.add(
       toAdd,
     );
     update();
-
     clearNewDrugValues();
   }
 
+  /// Edit specific med in the list
   void editMedInPrescription(int forEditIndex) {
     editPrescriptionList[forEditIndex] = PrescriptionModel(
       drugName: addMedDrugName.value,
@@ -51,24 +58,26 @@ class ClientController extends GetxController {
     );
   }
 
+  /// Clear data in fields after adding
   void clearNewDrugValues() {
     addMedDrugName.value = '';
     addMedDossage.value = '';
     addMedDetails.value = '';
-
-    log('added med');
   }
 
+  /// Checks if all input in drug form is valid
   bool isValidForAddMed() {
     return addMedDetails.value == '' ||
         addMedDrugName.value == '' ||
         addMedDossage.value == '';
   }
 
+  /// Remove specific med in the list
   void removeDrugFromPrescription(PrescriptionModel med) {
     editPrescriptionList.remove(med);
   }
 
+  /// Checks if the inputs for adding New Client are valid
   bool isValidForAddClient() {
     final isClientNameEmpty = clientFirstNameEdit.value.isNotEmpty;
     final isClientContactEmpty = clientContactNameEdit.value.isNotEmpty;
@@ -84,6 +93,7 @@ class ClientController extends GetxController {
     return isValid;
   }
 
+  /// Adds new client and upload to firebase
   void addClient() {
     addClientStatus.value = AddClientStatus.loading;
     try {
@@ -113,6 +123,7 @@ class ClientController extends GetxController {
     }
   }
 
+  /// Get Details about scpecific client
   Future<void> existingClientEditPrescriptionDetails({
     required String clientId,
     List<PrescriptionModel>? prescriptionList,
@@ -139,7 +150,9 @@ class ClientController extends GetxController {
     }
   }
 
+  /// Use Faker and create dummy data for testing
   void addStartingData() => clientRepository.addStartingClients();
 
+  /// Delete All Client docs in firebase
   void deleteDummyData() => clientRepository.deleteDummyData();
 }

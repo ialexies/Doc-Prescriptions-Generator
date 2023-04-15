@@ -1,29 +1,22 @@
-/// {@template client_repository}
-/// client repository
-/// {@endtemplate}
-///
-///
-
+///CLIENT REPOSITORY
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:developer';
-
 import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faker/faker.dart';
-// import 'package:faker/faker.dart';
-// import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'constants.dart';
 
 ///
 class ClientRepository {
-  /// {@macro client_repository}
+  /// Constructor
   ClientRepository(this.firebaseAuth);
 
-  ///
+  /// Initialize Faker
   final faker = Faker();
 
-  ///
+  /// Initialize firebase Authentication
   FirebaseAuth firebaseAuth;
 
   /// query for client collection from cloud firestore
@@ -35,7 +28,7 @@ class ClientRepository {
           // .where("clientFirstName", arrayContainsAny:  [])
           .snapshots();
 
-  ///
+  /// Get Details about specific Client
   Stream<DocumentSnapshot<Map<String, dynamic>>> clientColDetails(
     String selectedClientId,
   ) =>
@@ -46,7 +39,7 @@ class ClientRepository {
           .doc(selectedClientId)
           .snapshots();
 
-  ///
+  /// Add Client and upload to firebase
   void addClient({
     required String clientFirstName,
     required String clientLastName,
@@ -76,31 +69,10 @@ class ClientRepository {
     }
   }
 
-  ///
+  /// Create a dummy data  for testing
   Future<void> addStartingClients() async {
     final db = FirebaseFirestore.instance;
-
-    var drugList = [
-      'Alaxan',
-      'Biogesic',
-      'Medicol',
-      'Cefelexin',
-      'Gardan',
-      'Rubitusin',
-      'Diatabs',
-      'Decolgen',
-      'Aspirin',
-      'Mefinamic',
-      'Neozep',
-    ];
-    var drugDossageList = [
-      '150ml',
-      '300ml',
-      '500mg',
-      '250mg',
-      '500mg',
-    ];
-
+    final clientRepoConst = ClientRepoConst();
     for (var i = 0; i <= 3; i++) {
       final documentsToAdd = {
         'clientFirstName': faker.person.firstName(),
@@ -108,23 +80,24 @@ class ClientRepository {
         'contact': '09${faker.phoneNumber.random.fromCharSet('0123456789', 9)}',
         'prescription': [
           {
-            'drugName': (drugList..shuffle()).first,
-            'dossage': (drugDossageList..shuffle()).first,
+            'drugName': (clientRepoConst.drugList..shuffle()).first,
+            'dossage': (clientRepoConst.drugDossageList..shuffle()).first,
             'details': 'After Breakfast, once a day'
           },
           {
-            'drugName': (drugList..shuffle()).first,
-            'dossage': (drugDossageList..shuffle()).first,
+            'drugName': (clientRepoConst.drugList..shuffle()).first,
+            'dossage': (clientRepoConst.drugDossageList..shuffle()).first,
             'details': 'After Breakfast, once a day'
           },
           {
-            'drugName': (drugList..shuffle()).first,
-            'dossage': (drugDossageList..shuffle()).first,
+            'drugName': (clientRepoConst.drugList..shuffle()).first,
+            'dossage': (clientRepoConst.drugDossageList..shuffle()).first,
             'details': 'After Breakfast, once a day'
           },
           {
-            'drugName': (drugList..shuffle()).first,
-            'dossage': '${(drugDossageList..shuffle()).first}ml',
+            'drugName': (clientRepoConst.drugList..shuffle()).first,
+            'dossage':
+                '${(clientRepoConst.drugDossageList..shuffle()).first}ml',
             'details': 'After Breakfast, once a day'
           },
         ]
@@ -133,25 +106,11 @@ class ClientRepository {
           .collection('users')
           .doc(firebaseAuth.currentUser?.uid ?? '')
           .collection('prescriptions')
-          // .doc(doc['id'].toString())
           .doc(faker.phoneNumber.random.fromCharSet('0123456789', 9).toString())
           .set(documentsToAdd)
           .then((_) => print('Document  successfully written!'))
           .catchError((error) => print('Error writing document $error'));
     }
-
-    // for (final doc in documentsToAdd) {
-    //   await db
-    //       .collection('users')
-    //       .doc(firebaseAuth.currentUser?.uid ?? '')
-    //       .collection('prescriptions')
-    //       // .doc(doc['id'].toString())
-    //       .doc(faker.hashCode.toString())
-    //       .set(doc['data'] as Map<String, dynamic>)
-    //       .then((_) => print('Document ${doc['id']} successfully written!'))
-    //       .catchError(
-    //           (error) => print('Error writing document ${doc['id']}: $error'));
-    // }
   }
 
   ///
@@ -191,12 +150,10 @@ class ClientRepository {
     }
   }
 
+  /// Delete All Dummy Data
   Future<void> deleteDummyData() async {
     try {
       await FirebaseFirestore.instance.collection('users').doc().delete();
-      // .doc(firebaseAuth.currentUser?.uid ?? '')
-      // .delete();
-      // .collection('prescriptions').
     } catch (e) {
       log(e.toString());
     }
