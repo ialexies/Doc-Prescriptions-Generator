@@ -235,10 +235,15 @@ class _ClientViewState extends State<ClientView> {
             ),
           ),
           minVerticalPadding: 10,
-          trailing: IconButton(
-            color: Colors.white,
+          trailing: ElevatedButton(
             onPressed: controller.addStartingData,
-            icon: const Icon(Icons.add),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.red,
+            ),
+            child: const Icon(Icons.add_circle_outline,
+                size: 40, color: Colors.white),
           ),
         ),
       ),
