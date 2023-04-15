@@ -6,7 +6,6 @@ import 'package:client_repository/prescription_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'constants.dart';
 
 ///
 class ClientRepository {
@@ -106,6 +105,7 @@ class ClientRepository {
           .collection('users')
           .doc(firebaseAuth.currentUser?.uid ?? '')
           .collection('prescriptions')
+          // ignore: noop_primitive_operations
           .doc(faker.phoneNumber.random.fromCharSet('0123456789', 9).toString())
           .set(documentsToAdd)
           .then((_) => print('Document  successfully written!'))

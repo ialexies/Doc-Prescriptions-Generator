@@ -28,7 +28,9 @@ class _ClientViewState extends State<ClientView> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-          minWidth: double.infinity, minHeight: double.infinity),
+        minWidth: double.infinity,
+        minHeight: double.infinity,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -116,7 +118,9 @@ class _ClientViewState extends State<ClientView> {
                       else
                         DecoratedBox(
                           decoration: const BoxDecoration(
-                              color: Colors.black, border: Border()),
+                            color: Colors.black,
+                            border: Border(),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 5,
@@ -126,8 +130,9 @@ class _ClientViewState extends State<ClientView> {
                               title: const Text(
                                 'No Client Found!',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               subtitle: const Text(
                                 'You can use our existing dummy client data. Press this button.',
@@ -200,21 +205,24 @@ class _ClientViewState extends State<ClientView> {
                                                     child: Column(
                                                       children: [
                                                         const SizedBox(
-                                                            height: 10),
+                                                          height: 10,
+                                                        ),
                                                         const Text(
                                                           'Confirm',
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
                                                         const SizedBox(
-                                                            height: 15),
+                                                          height: 15,
+                                                        ),
                                                         const Text(
                                                           'Are you sure you want to deletethis client?',
                                                           textAlign:
                                                               TextAlign.center,
                                                         ),
                                                         const SizedBox(
-                                                            height: 20),
+                                                          height: 20,
+                                                        ),
                                                         //Buttons
                                                         Row(
                                                           children: [
@@ -253,7 +261,8 @@ class _ClientViewState extends State<ClientView> {
                                                               ),
                                                             ),
                                                             const SizedBox(
-                                                                width: 10),
+                                                              width: 10,
+                                                            ),
                                                             Expanded(
                                                               child:
                                                                   ElevatedButton(
@@ -288,8 +297,9 @@ class _ClientViewState extends State<ClientView> {
                                                                       document,
                                                                     );
                                                                   } catch (e) {
-                                                                    log(e
-                                                                        .toString());
+                                                                    log(
+                                                                      e.toString(),
+                                                                    );
                                                                     // Get.back();
                                                                   }
                                                                 },

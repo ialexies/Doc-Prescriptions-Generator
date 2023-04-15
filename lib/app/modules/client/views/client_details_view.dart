@@ -7,6 +7,7 @@ import 'package:doc_prescriptions/app/modules/client/helper/client_helpers.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class ClientDetailsView extends StatefulWidget {
   const ClientDetailsView({super.key});
@@ -65,9 +66,10 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                       height: 20,
                     ),
                     Text(
-                      '${client.clientFirstName} ${client.clientLastName}',
+                      '${client.clientFirstName} ${client.clientLastName}'
+                          .toUpperCase(),
                       style: TextStyle(
-                        fontSize: 60.sp,
+                        fontSize: 80.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -83,6 +85,7 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                         margin: const EdgeInsets.all(20),
                         child: Scrollbar(
                           child: ListView.separated(
+                            padding: const EdgeInsets.only(top: 30),
                             itemCount: (client.prescription ?? []).length,
                             separatorBuilder:
                                 (BuildContext context, int index) =>
@@ -90,9 +93,19 @@ class _ClientDetailsViewState extends State<ClientDetailsView> {
                             itemBuilder: (BuildContext context, int index) {
                               final med = client.prescription![index];
                               return ListTile(
-                                leading: Text(med.dossage ?? ''),
+                                leading: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 160.sp,
+                                      child: Lottie.network(
+                                        'https://assets1.lottiefiles.com/packages/lf20_rngukoer.json',
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 title: Text(
-                                  med.drugName ?? '',
+                                  '${med.dossage ?? ''} - ${med.drugName ?? ''}',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
