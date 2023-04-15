@@ -13,6 +13,9 @@ class HomeView extends GetView<HomeController> {
 
   static List<Widget> homeViews = <Widget>[
     const ClientView(),
+    Column(
+      children: const [Text('data')],
+    ),
     const AboutPage(),
   ];
 
@@ -38,6 +41,10 @@ class HomeView extends GetView<HomeController> {
             BottomNavigationBarItem(
               icon: Icon(Icons.medical_information),
               label: 'Clients',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info),
+              label: 'Notes',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.info),

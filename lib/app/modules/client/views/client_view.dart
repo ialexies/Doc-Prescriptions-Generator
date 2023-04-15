@@ -1,4 +1,4 @@
-// ignore_for_file: inference_failure_on_generic_invocation
+// ignore_for_file: inference_failure_on_generic_invocation, cascade_invocations, avoid_dynamic_calls, cast_nullable_to_non_nullable
 
 import 'dart:developer';
 
@@ -24,6 +24,7 @@ class _ClientViewState extends State<ClientView> {
   final controller = Get.find<ClientController>();
   final searchBoxController = TextEditingController();
   String searchText = '';
+  bool isSorted = true;
 
   final randomAvatarList = [
     'assets/images/avatar1.png',
@@ -39,8 +40,8 @@ class _ClientViewState extends State<ClientView> {
         minWidth: double.infinity,
         minHeight: double.infinity,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      child: ListView(
+        // mainAxisSize: MainAxisSize.min,
         children: [
           DecoratedBox(
             decoration:
@@ -126,63 +127,105 @@ class _ClientViewState extends State<ClientView> {
                     return isValid;
                   }).toList();
 
-                  return Column(
+                  if (isSorted) {
+                    filteredDocuments.sort((a, b) {
+                      final thisB = b.data() as Map<String, dynamic>;
+                      final thisA = a.data() as Map<String, dynamic>;
+
+                      final r = thisA['clientFirstName']
+                          .compareTo(thisB['clientFirstName']);
+
+                      if (r != 0) return r as int;
+                      return thisA['clientLastName']
+                          .compareTo(thisB['clientLastName']) as int;
+                    });
+                  }
+
+                  return Stack(
                     children: [
-                      if (documents.isNotEmpty)
-                        const SizedBox.shrink()
-                      else
-                        Column(
-                          children: [
-                            DecoratedBox(
-                              decoration: const BoxDecoration(
-                                color: Colors.black,
-                                border: Border(),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 5,
-                                  vertical: 5,
-                                ),
-                                child: ListTile(
-                                  title: const Text(
-                                    'No Client Found!',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  subtitle: const Text(
-                                    'You can use our existing dummy client data. Press this button.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  minVerticalPadding: 10,
-                                  trailing: IconButton(
-                                    color: Colors.white,
-                                    onPressed: controller.addStartingData,
-                                    icon: const Icon(Icons.add),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      Opacity(
+                        opacity: .2,
+                        child: LottieBuilder.asset(
+                          'assets/images/clients_background.json',
+                          fit: BoxFit.fitHeight,
                         ),
-                      Stack(
+                      ),
+                      Column(
                         children: [
-                          Opacity(
-                            opacity: .2,
-                            child: LottieBuilder.asset(
-                              'assets/images/clients_background.json',
-                              fit: BoxFit.fitHeight,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                'Sort By Name',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 40,
+                                child: Switch(
+                                  activeColor: Colors.amber,
+                                  activeTrackColor: Colors.cyan,
+                                  inactiveThumbColor: Colors.blueGrey.shade600,
+                                  inactiveTrackColor: Colors.grey.shade400,
+                                  splashRadius: 50,
+                                  value: isSorted,
+                                  onChanged: (value) =>
+                                      setState(() => isSorted = value),
+                                ),
+                              ),
+                            ],
                           ),
+                          if (documents.isNotEmpty)
+                            const SizedBox.shrink()
+                          else
+                            Column(
+                              children: [
+                                DecoratedBox(
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    border: Border(),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 5,
+                                      vertical: 5,
+                                    ),
+                                    child: ListTile(
+                                      title: const Text(
+                                        'No Client Found!',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      subtitle: const Text(
+                                        'You can use our existing dummy client data. Press this button.',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      minVerticalPadding: 10,
+                                      trailing: IconButton(
+                                        color: Colors.white,
+                                        onPressed: controller.addStartingData,
+                                        icon: const Icon(Icons.add),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           SingleChildScrollView(
                             child: SizedBox(
                               height: 1700.h,
                               child: ListView(
                                 // physics: const AlwaysScrollableScrollPhysics(), // new
-                                padding: const EdgeInsets.all(15),
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                  right: 15,
+                                  bottom: 15,
+                                ),
                                 shrinkWrap: true,
                                 children: filteredDocuments
                                     .map((DocumentSnapshot document) {
