@@ -43,54 +43,7 @@ class _ClientViewState extends State<ClientView> {
       child: ListView(
         // mainAxisSize: MainAxisSize.min,
         children: [
-          DecoratedBox(
-            decoration:
-                const BoxDecoration(color: Color(0xFFDCEDF8), border: Border()),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 20,
-              ),
-              child: TextFormField(
-                controller: searchBoxController,
-                onChanged: (value) {
-                  setState(() {
-                    searchText = value;
-                  });
-                },
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hintText: 'Search',
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                  enabledBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color.fromARGB(255, 202, 233, 253),
-                    ),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color.fromARGB(255, 202, 233, 253),
-                    ),
-                  ),
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color: Colors.red),
-                  ),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: Lottie.network(
-                      'https://assets6.lottiefiles.com/packages/lf20_e2zcy5pu.json',
-                      width: 18.sp,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          searchBoxWidget(),
           StreamBuilder<QuerySnapshot>(
             stream: controller.clientRepository.clients(),
             builder:
@@ -143,306 +96,342 @@ class _ClientViewState extends State<ClientView> {
                     });
                   }
 
-                  return Stack(
-                    children: [
-                      Opacity(
-                        opacity: .2,
-                        child: LottieBuilder.asset(
-                          'assets/images/clients_background.json',
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Text(
-                                'Sort By Name',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 40,
-                                child: Switch(
-                                  activeColor: Colors.amber,
-                                  activeTrackColor: Colors.cyan,
-                                  inactiveThumbColor: Colors.blueGrey.shade600,
-                                  inactiveTrackColor: Colors.grey.shade400,
-                                  splashRadius: 50,
-                                  value: isSorted,
-                                  onChanged: (value) =>
-                                      setState(() => isSorted = value),
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (documents.isNotEmpty)
-                            const SizedBox.shrink()
-                          else
-                            Column(
-                              children: [
-                                DecoratedBox(
-                                  decoration: const BoxDecoration(
-                                    color: Colors.black,
-                                    border: Border(),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 5,
-                                      vertical: 5,
-                                    ),
-                                    child: ListTile(
-                                      title: const Text(
-                                        'No Client Found!',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      subtitle: const Text(
-                                        'You can use our existing dummy client data. Press this button.',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      minVerticalPadding: 10,
-                                      trailing: IconButton(
-                                        color: Colors.white,
-                                        onPressed: controller.addStartingData,
-                                        icon: const Icon(Icons.add),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          SingleChildScrollView(
-                            child: SizedBox(
-                              height: 1700.h,
-                              child: ListView(
-                                // physics: const AlwaysScrollableScrollPhysics(), // new
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 15,
-                                  bottom: 15,
-                                ),
-                                shrinkWrap: true,
-                                children: filteredDocuments
-                                    .map((DocumentSnapshot document) {
-                                  if (document.data() == null) {
-                                    const SizedBox.shrink();
-                                  }
-                                  final data =
-                                      document.data()! as Map<String, dynamic>;
-                                  final dataSerialized =
-                                      ClientModel.fromMap(data);
-
-                                  return Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: ListTile(
-                                      leading: SizedBox(
-                                        width: 150.w,
-                                        child: ExtendedImage.asset(
-                                          (randomAvatarList..shuffle()).first,
-                                        ),
-                                      ),
-                                      title: Text(
-                                        '${dataSerialized.clientFirstName ?? ''} ${dataSerialized.clientLastName ?? ''}',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                      subtitle:
-                                          Text(dataSerialized.contact ?? ''),
-                                      trailing: IconButton(
-                                        onPressed: () async {
-                                          await Get.dialog(
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 40,
-                                                  ),
-                                                  child: DecoratedBox(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                        Radius.circular(20),
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                        20,
-                                                      ),
-                                                      child: Material(
-                                                        child: Column(
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: 10,
-                                                            ),
-                                                            const Text(
-                                                              'Confirm',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 15,
-                                                            ),
-                                                            const Text(
-                                                              'Are you sure you want to deletethis client?',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            const SizedBox(
-                                                              height: 20,
-                                                            ),
-                                                            //Buttons
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      foregroundColor:
-                                                                          const Color(
-                                                                        0xFFFFFFFF,
-                                                                      ),
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .amber,
-                                                                      minimumSize:
-                                                                          const Size(
-                                                                        0,
-                                                                        45,
-                                                                      ),
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                          8,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        Get.back,
-                                                                    child:
-                                                                        const Text(
-                                                                      'NO',
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 10,
-                                                                ),
-                                                                Expanded(
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                      foregroundColor:
-                                                                          const Color(
-                                                                        0xFFFFFFFF,
-                                                                      ),
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .amber,
-                                                                      minimumSize:
-                                                                          const Size(
-                                                                        0,
-                                                                        45,
-                                                                      ),
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                          8,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    onPressed:
-                                                                        () async {
-                                                                      Get.back();
-                                                                      try {
-                                                                        await deleteClient(
-                                                                          document,
-                                                                        );
-                                                                      } catch (e) {
-                                                                        log(
-                                                                          e.toString(),
-                                                                        );
-                                                                        // Get.back();
-                                                                      }
-                                                                    },
-                                                                    child:
-                                                                        const Text(
-                                                                      'YES',
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                          // await deleteClient(document);
-                                        },
-                                        icon: Icon(
-                                          Icons.delete,
-                                          size: 90.sp,
-                                        ),
-                                      ),
-                                      onTap: () => Get.toNamed(
-                                        Routes.prescriptionDetails,
-                                        arguments: document.id,
-                                      ),
-                                      dense: true,
-                                      hoverColor: Colors.amber,
-                                      style: ListTileStyle.drawer,
-                                      shape: const RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          color: Color.fromARGB(
-                                            255,
-                                            202,
-                                            233,
-                                            253,
-                                          ),
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(4),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
+                  return clientBody(documents, filteredDocuments);
                 },
               );
             },
           )
         ],
+      ),
+    );
+  }
+
+  DecoratedBox searchBoxWidget() {
+    return DecoratedBox(
+      decoration:
+          const BoxDecoration(color: Color(0xFFDCEDF8), border: Border()),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 20,
+        ),
+        child: TextFormField(
+          controller: searchBoxController,
+          onChanged: (value) {
+            setState(() {
+              searchText = value;
+            });
+          },
+          decoration: InputDecoration(
+            fillColor: Colors.white,
+            filled: true,
+            hintText: 'Search',
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            enabledBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(255, 202, 233, 253),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderSide: BorderSide(
+                width: 2,
+                color: Color.fromARGB(255, 202, 233, 253),
+              ),
+            ),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(width: 3, color: Colors.red),
+            ),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Lottie.network(
+                'https://assets6.lottiefiles.com/packages/lf20_e2zcy5pu.json',
+                width: 18.sp,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Stack clientBody(
+    List<QueryDocumentSnapshot<Object?>> documents,
+    List<QueryDocumentSnapshot<Object?>> filteredDocuments,
+  ) {
+    return Stack(
+      children: [
+        Opacity(
+          opacity: .2,
+          child: LottieBuilder.asset(
+            'assets/images/clients_background.json',
+            fit: BoxFit.fitHeight,
+          ),
+        ),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text(
+                  'Sort By Name',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                  child: Switch(
+                    activeColor: Colors.amber,
+                    activeTrackColor: Colors.cyan,
+                    inactiveThumbColor: Colors.blueGrey.shade600,
+                    inactiveTrackColor: Colors.grey.shade400,
+                    splashRadius: 50,
+                    value: isSorted,
+                    onChanged: (value) => setState(() => isSorted = value),
+                  ),
+                ),
+              ],
+            ),
+            if (documents.isNotEmpty)
+              const SizedBox.shrink()
+            else
+              Column(
+                children: [
+                  noClientFoundWidget(),
+                ],
+              ),
+            clientListWidget(filteredDocuments),
+          ],
+        ),
+      ],
+    );
+  }
+
+  DecoratedBox noClientFoundWidget() {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        border: Border(),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 5,
+          vertical: 5,
+        ),
+        child: ListTile(
+          title: const Text(
+            'No Client Found!',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          subtitle: const Text(
+            'You can use our existing dummy client data. Press this button.',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          minVerticalPadding: 10,
+          trailing: IconButton(
+            color: Colors.white,
+            onPressed: controller.addStartingData,
+            icon: const Icon(Icons.add),
+          ),
+        ),
+      ),
+    );
+  }
+
+  SingleChildScrollView clientListWidget(
+      List<QueryDocumentSnapshot<Object?>> filteredDocuments) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: 1700.h,
+        child: ListView(
+          padding: const EdgeInsets.only(
+            left: 15,
+            right: 15,
+            bottom: 15,
+          ),
+          shrinkWrap: true,
+          children: filteredDocuments.map((DocumentSnapshot document) {
+            if (document.data() == null) {
+              const SizedBox.shrink();
+            }
+            final data = document.data()! as Map<String, dynamic>;
+            final dataSerialized = ClientModel.fromMap(data);
+
+            return Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: ListTile(
+                leading: SizedBox(
+                  width: 150.w,
+                  child: ExtendedImage.asset(
+                    (randomAvatarList..shuffle()).first,
+                  ),
+                ),
+                title: Text(
+                  '${dataSerialized.clientFirstName ?? ''} ${dataSerialized.clientLastName ?? ''}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                subtitle: Text(dataSerialized.contact ?? ''),
+                trailing: btnDeleteClient(document),
+                onTap: () => Get.toNamed(
+                  Routes.prescriptionDetails,
+                  arguments: document.id,
+                ),
+                dense: true,
+                hoverColor: Colors.amber,
+                style: ListTileStyle.drawer,
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Color.fromARGB(
+                      255,
+                      202,
+                      233,
+                      253,
+                    ),
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(4),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  IconButton btnDeleteClient(DocumentSnapshot<Object?> document) {
+    return IconButton(
+      onPressed: () async {
+        await Get.dialog(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                ),
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(
+                      20,
+                    ),
+                    child: Material(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            'Confirm',
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          const Text(
+                            'Are you sure you want to deletethis client?',
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          //Buttons
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: const Color(
+                                      0xFFFFFFFF,
+                                    ),
+                                    backgroundColor: Colors.amber,
+                                    minimumSize: const Size(
+                                      0,
+                                      45,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        8,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: Get.back,
+                                  child: const Text(
+                                    'NO',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: const Color(
+                                      0xFFFFFFFF,
+                                    ),
+                                    backgroundColor: Colors.amber,
+                                    minimumSize: const Size(
+                                      0,
+                                      45,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        8,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    Get.back();
+                                    try {
+                                      await deleteClient(
+                                        document,
+                                      );
+                                    } catch (e) {
+                                      log(
+                                        e.toString(),
+                                      );
+                                      // Get.back();
+                                    }
+                                  },
+                                  child: const Text(
+                                    'YES',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+        // await deleteClient(document);
+      },
+      icon: Icon(
+        Icons.delete,
+        size: 90.sp,
       ),
     );
   }
