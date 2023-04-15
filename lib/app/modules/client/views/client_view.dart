@@ -9,6 +9,7 @@ import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 // class ClientView extends GetView<ClientController> {
 class ClientView extends StatefulWidget {
@@ -46,18 +47,30 @@ class _ClientViewState extends State<ClientView> {
                     searchText = value;
                   });
                 },
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   fillColor: Colors.white,
                   filled: true,
                   hintText: 'Search',
-                  enabledBorder: OutlineInputBorder(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  enabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderSide: BorderSide(width: 2, color: Colors.amberAccent),
                   ),
-                  border: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderSide:
+                        BorderSide(width: 2, color: Colors.orangeAccent),
+                  ),
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(width: 3, color: Colors.red),
                   ),
-                  suffixIcon: Icon(Icons.search),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Lottie.network(
+                      'https://assets6.lottiefiles.com/packages/lf20_e2zcy5pu.json',
+                      width: 18.sp,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -140,8 +153,9 @@ class _ClientViewState extends State<ClientView> {
                             shrinkWrap: true,
                             children: filteredDocuments
                                 .map((DocumentSnapshot document) {
-                              if (document.data() == null)
+                              if (document.data() == null) {
                                 const SizedBox.shrink();
+                              }
                               final data =
                                   document.data()! as Map<String, dynamic>;
                               final dataSerialized = ClientModel.fromMap(data);
@@ -149,8 +163,15 @@ class _ClientViewState extends State<ClientView> {
                               return Padding(
                                 padding: const EdgeInsets.only(top: 5),
                                 child: ListTile(
+                                  leading: Lottie.network(
+                                    'https://assets3.lottiefiles.com/packages/lf20_vPnn3K.json',
+                                  ),
                                   title: Text(
-                                      dataSerialized.clientFirstName ?? ''),
+                                    '${dataSerialized.clientFirstName ?? ''} ${dataSerialized.clientLastName ?? ''}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
                                   subtitle: Text(dataSerialized.contact ?? ''),
                                   trailing: IconButton(
                                     onPressed: () async {

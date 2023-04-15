@@ -24,6 +24,7 @@ class HomeView extends GetView<HomeController> {
           title: const Text('Doc Prescriptions'),
           centerTitle: true,
         ),
+        resizeToAvoidBottomInset: false,
         drawer: const DPDrawer(),
         floatingActionButton: controller.selectedIndex.value != 0
             ? null
