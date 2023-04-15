@@ -1,5 +1,6 @@
 ///CLIENT REPOSITORY
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, avoid_print,
+// ignore_for_file: inference_failure_on_untyped_parameter
 
 import 'dart:developer';
 import 'package:client_repository/prescription_repository.dart';

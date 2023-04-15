@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-// class ClientView extends GetView<ClientController> {
 class ClientView extends StatefulWidget {
   const ClientView({super.key});
 
@@ -247,7 +246,8 @@ class _ClientViewState extends State<ClientView> {
   }
 
   SingleChildScrollView clientListWidget(
-      List<QueryDocumentSnapshot<Object?>> filteredDocuments) {
+    List<QueryDocumentSnapshot<Object?>> filteredDocuments,
+  ) {
     return SingleChildScrollView(
       child: SizedBox(
         height: 1700.h,
