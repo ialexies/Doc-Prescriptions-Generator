@@ -1,7 +1,7 @@
 name: doc_prescriptions
-version: 1.0.0+1
+version: 1.0.1
 publish_to: none
-description: A Very Good Project created by Very Good CLI.
+description: Doctors Patient Prescription Generator App
 environment:
   sdk: '>=2.18.0 <3.0.0'
 
