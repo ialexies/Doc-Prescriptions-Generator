@@ -1,8 +1,8 @@
 # Doc Prescriptions
+*Specifically designed for demo.The idea of doing an prescription app is based to the nature of client whick is in field of medicine. 
 
 Doc prescriptions is an app to help doctors create prescriptions. It's an mvp app that can be extended to have QR code or downloadable and printable list of meds for the patient. This app uses cloud firebase to retrieve data from the internet as fast as possible. 
 
-*Specifically designed for demo.The idea of doing an prescription app is based to the nature of client whick is in field of medicine. 
 
 # Architecture & State Management
 The app implements Getx Architecture, and uses the base Scaffold provided by Very Good Venture. During the development, the developer uses several code genration such as, Get CLI, Very Good CLI,  Build Runner.  The app initializes the repositories and controllers during initialization to efficiently use the singleton for each class, then the getx finds the classes and its in instance when it is needed.
