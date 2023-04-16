@@ -1,15 +1,27 @@
 # Doc Prescriptions
 
+Doc prescriptions is an app to help doctors create prescriptions. It's an mvp app that can be extended to have QR code or downloadable and printable list of meds for the patient. This app uses cloud firebase to retrieve data from the internet as fast as possible. 
+
+*Specifically designed for demo.The idea of doing an prescription app is based to the nature of client whick is in field of medicine. 
+
+# Architecture & State Management
+The app implements Getx Architecture, and uses the base Scaffold provided by Very Good Venture. During the development, the developer uses several code genration such as, Get CLI, Very Good CLI,  Build Runner.  The app initializes the repositories and controllers during initialization to efficiently use the singleton for each class, then the getx finds the classes and its in instance when it is needed.
+
+# State Management
+The developer used GetX as this is the main statemanagement used by the client, GetX was ustilized at all ways such as using GetxRoute, Binding, managing business logic, State management, and GetStorage for persistent Data.
+
+# Doc Prescriptions
 A demo app made from Flutter, and Firebase for Backend.
     - Firebase Authentication
     - FireStore CRUD(create, read, update, delete)
-    - Search
+    - Search 
+    - Sort
     - Platform agnostic Packages
     - GetX clean architecture
     - Flavors, Envirnoment
-    
     - Use of Faker Data
-    -
+    - Video Player
+    - Pageview
 
 
 ## Getting Started 🚀
@@ -19,6 +31,8 @@ This project contains 3 flavors:
 - development
 - staging
 - production
+
+If you need to build a release version, you need the the key properties to prodcue the release version which the developer will provide.
 
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
 
@@ -34,36 +48,3 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Doc Prescriptions works on iOS, Android, Web, and Windows._
-
----
-
-## Running Tests 🧪
-
-To run all unit and widget tests use the following command:
-
-```sh
-$ flutter test --coverage --test-randomize-ordering-seed random
-```
-
-To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
-
-```sh
-# Generate Coverage Report
-$ genhtml coverage/lcov.info -o coverage/
-
-# Open Coverage Report
-$ open coverage/index.html
-```
-
-
-```
-
-[coverage_badge]: coverage_badge.svg
-[flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
-[internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
-[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli

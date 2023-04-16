@@ -40,7 +40,6 @@ class _ClientViewState extends State<ClientView> {
         minHeight: double.infinity,
       ),
       child: ListView(
-        // mainAxisSize: MainAxisSize.min,
         children: [
           searchBoxWidget(),
           StreamBuilder<QuerySnapshot>(
