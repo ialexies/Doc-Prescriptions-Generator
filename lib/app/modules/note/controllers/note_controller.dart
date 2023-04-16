@@ -1,23 +1,30 @@
+import 'dart:developer';
+
+import 'package:doc_prescriptions/app/data/providers/storage_provider.dart';
 import 'package:get/get.dart';
 
 class NoteController extends GetxController {
-  //TODO: Implement NoteController
+  final notes = <String>[].obs;
+  final storageProvider = StorageProvider();
+  Future<void> addNote() async {
+    try {
+      await storageProvider.save('notes', ['Note1' 'Note 2']);
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+      log('success adding note');
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> readNotes() async {
+    try {
+      final tempnotes = await storageProvider.read('notes') as List<String>;
+      notes.value = tempnotes;
+      log(notes.value.toString());
+    } catch (e) {
+      log(e.toString());
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
+
+class Note {}

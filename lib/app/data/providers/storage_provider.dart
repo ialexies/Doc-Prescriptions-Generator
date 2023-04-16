@@ -17,40 +17,12 @@ class StorageProvider extends GetxService {
     return val;
   }
 
-  save(String key, val) {
-    box.write(key, val);
-  }
-
-  // readCart(name) async {
-  //   final response = await box.read('cart');
-
-  //   // final List<Art> cart = [];
-
-  //   // if (response.runtimeType == List<Art>) {
-  //   //   return response;
-  //   // }
-
-  //   // for (var element in response) {
-  //   //   final decoded = jsonDecode(element);
-
-  //   //   if (decoded.runtimeType != Art) {
-  //   //     // cart.add(Art.fromStorage(decoded));
-  //   //     cart.add(Art.fromStorage(decoded));
-  //   //   } else {
-  //   //     cart.add(decoded);
-  //   //   }
-  //   // }
-
-  //   return cart;
-  //   // return response;
-  // }
-
-  saveCart(key, val) {
-    box.write('cart', val);
-  }
-
-  removeCart(String key) {
-    box.remove(key);
+  save(String key, dynamic val) {
+    try {
+      box.write(key, val);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   remove(String key) {

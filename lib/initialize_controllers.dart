@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:doc_prescriptions/app/modules/client/controllers/client_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
+import 'package:doc_prescriptions/app/modules/note/controllers/note_controller.dart';
 import 'package:get/get.dart';
 
 Future<void> initializeControllers() async {
@@ -16,6 +17,11 @@ Future<void> initializeControllers() async {
     ..lazyPut<ClientController>(
       () {
         return ClientController();
+      },
+    )
+    ..lazyPut<NoteController>(
+      () {
+        return NoteController();
       },
     );
 
