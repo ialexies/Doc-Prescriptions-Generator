@@ -1,5 +1,5 @@
 # Doc Prescriptions
-*Specifically designed for demo.The idea of doing an prescription app is based to the nature of client whick is in field of medicine. 
+*Specifically designed for demo. The idea of doing an prescription app is based to the nature of client whick is in field of medicine. 
 
 Doc prescriptions is an app to help doctors create prescriptions. It's an mvp app that can be extended to have QR code or downloadable and printable list of meds for the patient. This app uses cloud firebase to retrieve data from the internet as fast as possible. 
 
