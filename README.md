@@ -48,3 +48,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
+## Updating App Icon
+change the app_icon image in asset/images and run this command
+flutter pub run flutter_launcher_icons:main
+
