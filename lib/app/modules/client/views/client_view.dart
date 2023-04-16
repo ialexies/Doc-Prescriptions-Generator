@@ -44,16 +44,16 @@ class _ClientViewState extends State<ClientView> {
           searchBoxWidget(),
           StreamBuilder<QuerySnapshot>(
             stream: controller.clientRepository.clients(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<QuerySnapshot> snapshot,
+            ) {
               if (snapshot.hasError) {
                 return const Text('Something went wrong');
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Expanded(
-                  child: Center(child: CircularProgressIndicator.adaptive()),
-                );
+                return Center(child: CircularProgressIndicator.adaptive());
               }
 
               return Builder(

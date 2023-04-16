@@ -14,10 +14,10 @@ class HomeView extends GetView<HomeController> {
 
   static List<Widget> homeViews = <Widget>[
     const ClientView(),
-    // Column(
-    //   children: const [Text('data')],
-    // ),
-    NoteView(),
+    Column(
+      children: const [Text('data')],
+    ),
+    // NoteView(),
     const AboutPage(),
   ];
 
