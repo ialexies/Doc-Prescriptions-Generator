@@ -8,89 +8,103 @@ class NoteView extends GetView<NoteController> {
   const NoteView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(
-                15,
-              ),
-              child: Obx(
-                () => TextFormField(
-                  initialValue: controller.newNote.value,
-                  onChanged: (_) => controller.newNote.value = _,
-                  decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
-                        hintText: 'Add New Notes',
-                        suffixIcon: IconButton(
-                          color: Colors.red,
-                          onPressed: () => controller.addNote(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(
+              15,
+            ),
+            child: Obx(
+              () => TextFormField(
+                controller: controller.newNoteController.value,
+                // initialValue: controller.newNote.value,
+                onChanged: (_) => controller.newNote.value = _,
+                decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
+                      hintText: 'Add New Notes',
+                      suffixIcon: IconButton(
+                        color: Colors.amber,
+                        onPressed: () {
+                          if (controller.newNote.isEmpty) {
+                            Get.snackbar(
+                              'Error',
+                              'Please enter text in the note field',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                            return;
+                          }
+                          controller.addNote(
                             note: controller.newNote.value,
+                          );
+                          Get.snackbar(
+                            'Success',
+                            'Successfully added new notes',
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.amber,
+                            colorText: Colors.black,
+                          );
+                        },
+                        icon: const Icon(Icons.note_add),
+                      ),
+                    ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter Note to add';
+                  }
+                  return null;
+                },
+                autovalidateMode: AutovalidateMode.always,
+              ),
+            ),
+          ),
+          Obx(
+            () => Column(
+              children: controller.notes
+                  .map(
+                    (element) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 5,
+                      ),
+                      child: ListTile(
+                        subtitle: Text(element),
+                        trailing: IconButton(
+                          onPressed: () {
+                            final indx =
+                                controller.notes.value.indexOf(element);
+                            controller.deteNote(noteIndex: indx);
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                        dense: true,
+                        hoverColor: Colors.amber,
+                        style: ListTileStyle.drawer,
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Color.fromARGB(
+                              255,
+                              202,
+                              233,
+                              253,
+                            ),
                           ),
-                          icon: const Icon(Icons.note_add),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4),
+                          ),
                         ),
                       ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter Note to add';
-                    }
-                    return null;
-                  },
-                  autovalidateMode: AutovalidateMode.always,
-                ),
-              ),
+                    ),
+                  )
+                  .toList(),
             ),
-            Obx(() => Text(controller.newNote.toString())),
-            Obx(() => Column(
-                  children: controller.notes
-                      .map(
-                        (element) => Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 5,
-                          ),
-                          child: ListTile(
-                            subtitle: Text(element),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.delete),
-                            ),
-                            dense: true,
-                            hoverColor: Colors.amber,
-                            style: ListTileStyle.drawer,
-                            shape: const RoundedRectangleBorder(
-                              side: BorderSide(
-                                color: Color.fromARGB(
-                                  255,
-                                  202,
-                                  233,
-                                  253,
-                                ),
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(4),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                )),
-            ElevatedButton(
-              onPressed: () =>
-                  controller.addNote(note: controller.newNote.value),
-              child: const Text('Add Notes'),
-            ),
-            ElevatedButton(
-              onPressed: () => controller.readNotes(),
-              child: const Text('Read Notes'),
-            ),
-            ElevatedButton(
-              onPressed: () => controller.deleteAllNotes(),
-              child: const Text('Delete All Notes'),
-            ),
-          ],
-        ),
+          ),
+          ElevatedButton(
+            onPressed: () => controller.deleteAllNotes(),
+            child: const Text('Delete All Notes'),
+          )
+        ],
       ),
     );
   }
