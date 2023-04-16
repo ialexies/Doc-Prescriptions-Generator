@@ -3,10 +3,12 @@ import 'package:doc_prescriptions/app/app.dart';
 import 'package:doc_prescriptions/bootstrap.dart';
 import 'package:doc_prescriptions/firebase_options.dart';
 import 'package:doc_prescriptions/initialize_controllers.dart';
+import 'package:doc_prescriptions/initialize_providers.dart';
 import 'package:doc_prescriptions/initialize_repositories.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,8 +18,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await initializeProviders();
   await initializeRepositories();
   await initializeControllers();
+
   await bootstrap(() => const App());
 }
 
