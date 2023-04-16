@@ -109,6 +109,7 @@ class ClientAddView extends GetView<ClientController> {
                       onChanged: (_) {
                         controller.clientContactNameEdit.value = _;
                       },
+                      maxLength: 11,
                       keyboardType: TextInputType.phone,
                       decoration: ClientHelpe().docPrecTextFieldDecor.copyWith(
                             hintText: 'Contact',

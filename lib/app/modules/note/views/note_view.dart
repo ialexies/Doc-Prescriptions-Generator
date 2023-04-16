@@ -1,6 +1,7 @@
 import 'package:doc_prescriptions/app/modules/client/helper/client_helpers.dart';
 import 'package:doc_prescriptions/app/modules/note/controllers/note_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
@@ -103,9 +104,16 @@ class NoteView extends GetView<NoteController> {
             if (controller.notes.isEmpty) {
               return const SizedBox.shrink();
             } else {
-              return ElevatedButton(
-                onPressed: () => controller.deleteAllNotes(),
-                child: const Text('Delete All Notes'),
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => controller.deleteAllNotes(),
+                    child: const Text('Delete All Notes'),
+                  ),
+                ],
               );
             }
           })
