@@ -674,13 +674,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  notes_repository:
-    dependency: "direct main"
-    description:
-      path: "packages/notes_repository"
-      relative: true
-    source: path
-    version: "0.1.0+1"
   package_config:
     dependency: transitive
     description:

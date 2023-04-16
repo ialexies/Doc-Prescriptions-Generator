@@ -30,8 +30,6 @@ dependencies:
   lottie: ^2.3.2
   my_core_pckg:
     path: packages/my_core_pckg
-  notes_repository:
-    path: packages/notes_repository
   reactive_forms: ^14.1.0
   simple_animations: ^5.0.0+3
   video_player: ^2.6.1

@@ -53,7 +53,9 @@ class _ClientViewState extends State<ClientView> {
               }
 
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator.adaptive());
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
               }
 
               return Builder(
@@ -241,8 +243,11 @@ class _ClientViewState extends State<ClientView> {
               backgroundColor: Colors.blue,
               foregroundColor: Colors.red,
             ),
-            child: const Icon(Icons.add_circle_outline,
-                size: 40, color: Colors.white),
+            child: const Icon(
+              Icons.add_circle_outline,
+              size: 40,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

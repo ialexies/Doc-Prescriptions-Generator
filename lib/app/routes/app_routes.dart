@@ -8,7 +8,7 @@ abstract class Routes {
   static const prescription = _Paths.prescription;
   static const prescriptionDetails = _Paths.prescriptionDetails;
   static const prescriptionAdd = _Paths.prescriptionAdd;
-  static const NOTE = _Paths.NOTE;
+  static const note = _Paths.note;
 }
 
 abstract class _Paths {
@@ -18,5 +18,5 @@ abstract class _Paths {
   static const prescription = '/prescription';
   static const prescriptionDetails = '/prescription/details';
   static const prescriptionAdd = '/prescription/add';
-  static const NOTE = '/note';
+  static const note = '/note';
 }

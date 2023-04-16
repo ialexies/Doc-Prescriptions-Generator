@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NoteView extends GetView<NoteController> {
-  const NoteView({Key? key}) : super(key: key);
+  const NoteView({super.key});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,13 +49,13 @@ class NoteView extends GetView<NoteController> {
                         icon: const Icon(Icons.note_add),
                       ),
                     ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter Note to add';
-                  }
-                  return null;
-                },
-                autovalidateMode: AutovalidateMode.always,
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter Note to add';
+                //   }
+                //   return null;
+                // },
+                // autovalidateMode: AutovalidateMode.always,
               ),
             ),
           ),
@@ -72,8 +72,7 @@ class NoteView extends GetView<NoteController> {
                         subtitle: Text(element),
                         trailing: IconButton(
                           onPressed: () {
-                            final indx =
-                                controller.notes.value.indexOf(element);
+                            final indx = controller.notes.indexOf(element);
                             controller.deteNote(noteIndex: indx);
                           },
                           icon: const Icon(Icons.delete),
@@ -100,10 +99,16 @@ class NoteView extends GetView<NoteController> {
                   .toList(),
             ),
           ),
-          ElevatedButton(
-            onPressed: () => controller.deleteAllNotes(),
-            child: const Text('Delete All Notes'),
-          )
+          Obx(() {
+            if (controller.notes.isEmpty) {
+              return const SizedBox.shrink();
+            } else {
+              return ElevatedButton(
+                onPressed: () => controller.deleteAllNotes(),
+                child: const Text('Delete All Notes'),
+              );
+            }
+          })
         ],
       ),
     );

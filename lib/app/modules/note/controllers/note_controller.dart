@@ -1,7 +1,7 @@
-import 'dart:developer';
+// ignore_for_file: invalid_use_of_protected_member, cascade_invocations
 
+import 'dart:developer';
 import 'package:doc_prescriptions/app/data/providers/storage_provider.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,7 @@ class NoteController extends GetxController {
   final newNote = ''.obs;
   final newNoteController = TextEditingController().obs;
   @override
-  void onInit() async {
+  Future<void> onInit() async {
     super.onInit();
     await readNotes();
   }
@@ -20,7 +20,6 @@ class NoteController extends GetxController {
     if (note.isEmpty) return;
     try {
       notes.add(note);
-      // ignore: invalid_use_of_protected_member
       final tempNewNotes = notes.value;
       await storageProvider.save('notes', tempNewNotes);
       await readNotes();
@@ -58,13 +57,15 @@ class NoteController extends GetxController {
 
   Future<void> deteNote({required int noteIndex}) async {
     try {
-      List<String> tempNote = notes.value;
+      final tempNote = notes.value;
 
       tempNote.removeAt(noteIndex);
 
       await storageProvider.save('notes', tempNote);
-      readNotes();
-    } catch (e) {}
+      await readNotes();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
 
