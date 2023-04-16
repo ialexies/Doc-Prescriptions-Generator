@@ -2,6 +2,7 @@ import 'package:doc_prescriptions/app/modules/client/views/client_view.dart';
 import 'package:doc_prescriptions/app/modules/home/controllers/home_controller.dart';
 import 'package:doc_prescriptions/app/modules/home/views/about_view.dart';
 import 'package:doc_prescriptions/app/modules/home/widgets/dp_drawer.dart';
+import 'package:doc_prescriptions/app/modules/note/views/note_view.dart';
 import 'package:doc_prescriptions/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,9 +14,10 @@ class HomeView extends GetView<HomeController> {
 
   static List<Widget> homeViews = <Widget>[
     const ClientView(),
-    Column(
-      children: const [Text('data')],
-    ),
+    // Column(
+    //   children: const [Text('data')],
+    // ),
+    NoteView(),
     const AboutPage(),
   ];
 
