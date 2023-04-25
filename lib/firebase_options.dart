@@ -39,7 +39,6 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
-      // ignore: no_default_cases
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -70,8 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '427479116956',
     projectId: 'doc-prescribe',
     storageBucket: 'doc-prescribe.appspot.com',
-    iosClientId:
-        '427479116956-iaoojtuhn4p8l6nkqdgp2kggtioibqmn.apps.googleusercontent.com',
+    iosClientId: '427479116956-iaoojtuhn4p8l6nkqdgp2kggtioibqmn.apps.googleusercontent.com',
     iosBundleId: 'com.example.verygoodcore.doc-prescriptions',
   );
 }
