@@ -13,7 +13,7 @@ dependencies:
     path: packages/client_repository
   cloud_firestore: ^4.5.0
   extended_image: ^7.0.2
-  firebase_auth: ^4.4.0
+  firebase_auth: ^4.6.0
   firebase_core: ^2.9.0
   flutter:
     sdk: flutter
